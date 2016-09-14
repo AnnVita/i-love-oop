@@ -1,15 +1,16 @@
 #include "stdafx.h"
 #include <iostream>
 #include <fstream>
+#include <cstring> 
 
 using namespace std;
 
 int main(int argc, char * argv[])
 {
-	if (argc != 3)
+	if (argc != 5)
 	{
 		cout << "Invalid arguments count\n"
-			<< "Usage: copyfile.exe <input file> <output file>\n";
+			<< "Usage: replace.exe <input file><output file><search string><replace string>\n";
 		return 1;
 	}
 
@@ -28,6 +29,14 @@ int main(int argc, char * argv[])
 		cout << "Failed to open " << argv[2] << " for writing\n";
 		return 1;
 	}
+
+	if (strlen(argv[3]) == 0)
+	{
+		cout << "Searching string cannot be empty!\n";
+		return 1;
+	}
+
+	std::string searchString = argv[3];
 
     return 0;
 }
