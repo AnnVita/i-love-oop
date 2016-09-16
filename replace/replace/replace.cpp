@@ -37,6 +37,17 @@ int main(int argc, char * argv[])
 	}
 
 	std::string searchString = argv[3];
+	while (getline(input, stringFromFile))
+	{
+
+		output << stringFromFile;
+	}
+
+	if (!output.flush())
+	{
+		cout << "Failed to save data on disk\n";
+		return 1;
+	}
 
     return 0;
 }
