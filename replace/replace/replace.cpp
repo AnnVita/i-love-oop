@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <fstream>
-#include <cstring> 
+#include <string>
 
 using namespace std;
 
@@ -36,7 +36,10 @@ int main(int argc, char * argv[])
 		return 1;
 	}
 
-	std::string searchString = argv[3];
+	string searchString = argv[3];
+	string replaceString = argv[4];
+	string stringFromFile;
+
 	while (getline(input, stringFromFile))
 	{
 
