@@ -5,6 +5,8 @@
 
 using namespace std;
 
+string replace(string &haystack, const string &needle);
+
 int main(int argc, char * argv[])
 {
 	if (argc != 5)
@@ -36,14 +38,14 @@ int main(int argc, char * argv[])
 		return 1;
 	}
 
-	string searchString = argv[3];
+	const string searchString = argv[3];
 	string replaceString = argv[4];
-	string stringFromFile;
+	string stringToChange;
 
-	while (getline(input, stringFromFile))
+	while (getline(input, stringToChange))
 	{
-
-		output << stringFromFile;
+		// stringToChange = replace(stringToChange, searchString);
+		output << stringToChange;
 	}
 
 	if (!output.flush())
@@ -55,3 +57,7 @@ int main(int argc, char * argv[])
     return 0;
 }
 
+string replace(string &haystack, const string &needle)
+{
+
+}
