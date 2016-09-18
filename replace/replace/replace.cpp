@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void replace(string &haystack, const string &needle);
+string replace(const string &haystack, const string &needle, const string &replace);
 
 int main(int argc, char * argv[])
 {
@@ -44,8 +44,8 @@ int main(int argc, char * argv[])
 
 	while (getline(input, stringToChange))
 	{
-		replace(stringToChange, searchString);
-		output << stringToChange;
+		stringToChange = replace(stringToChange, searchString, replaceString);
+		output << stringToChange + '\n';
 	}
 
 	if (!output.flush())
@@ -57,7 +57,16 @@ int main(int argc, char * argv[])
     return 0;
 }
 
-void replace(string &haystack, const string &needle)
+string replace(const string &haystack, const string &needle, const string &replace)
 {
-
+	int lastFoundedPos = 0, currFoundedPos = 0;
+	string result = "";
+	while ((currFoundedPos = haystack.find(needle, lastFoundedPos)) != string::npos)
+	{
+		cout << currFoundedPos;
+		result += haystack.substr(lastFoundedPos, currFoundedPos - lastFoundedPos);
+		result += replace;
+		lastFoundedPos = currFoundedPos + needle.length();
+	}
+	return result += haystack.substr(lastFoundedPos);
 }
