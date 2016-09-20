@@ -45,6 +45,11 @@ if NOT ERRORLEVEL 1 goto err
 fc.exe %TEMP%\output.txt standart_errNumParameters.txt
 if ERRORLEVEL 1 goto err
 
+%PROGRAM% numtest.txt %TEMP%\numtest.txt "1231234" "sucsess"
+if ERRORLEVEL 1 goto err
+fc.exe %TEMP%\numtest.txt standart_numtest.txt
+if ERRORLEVEL 1 goto err
+
 echo Program testing succeeded
 exit 0
 
