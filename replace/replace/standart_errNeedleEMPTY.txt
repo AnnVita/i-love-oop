@@ -1,0 +1,1 @@
+Searching string cannot be empty!

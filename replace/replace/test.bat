@@ -18,6 +18,31 @@ if ERRORLEVEL 1 goto err
 %PROGRAM% test.txt %TEMP%\needleNreplaceN.txt "yesterday" "tomorrow"
 if ERRORLEVEL 1 goto err
 fc.exe %TEMP%\needleNreplaceN.txt standart_NeedleNReplaceN.txt
+if ERRORLEVEL 1 goto err 
+
+%PROGRAM% test.txt %TEMP%\needleNreplaceEMPTY.txt "yesterday" ""
+if ERRORLEVEL 1 goto err
+fc.exe %TEMP%\needleNreplaceEMPTY.txt standart_NeedleNReplaceEMPTY.txt
+if ERRORLEVEL 1 goto err
+
+%PROGRAM% test.txt %TEMP%\errNeedleEMPTY.txt "" "yesterday" > %TEMP%\output.txt
+if NOT ERRORLEVEL 1 goto err
+fc.exe %TEMP%\output.txt standart_errNeedleEMPTY.txt
+if ERRORLEVEL 1 goto err
+
+%PROGRAM% not-exists.txt %TEMP%\errReadFile.txt "yesterday" "1" > %TEMP%\output.txt
+if NOT ERRORLEVEL 1 goto err
+fc.exe %TEMP%\output.txt standart_errReadFile.txt
+if ERRORLEVEL 1 goto err
+
+%PROGRAM% test.txt z:\not-exists.txt "yesterday" "1" > %TEMP%\output.txt
+if NOT ERRORLEVEL 1 goto err
+fc.exe %TEMP%\output.txt standart_errWriteFile.txt
+if ERRORLEVEL 1 goto err
+
+%PROGRAM% > %TEMP%\output.txt
+if NOT ERRORLEVEL 1 goto err
+fc.exe %TEMP%\output.txt standart_errNumParameters.txt
 if ERRORLEVEL 1 goto err
 
 echo Program testing succeeded
