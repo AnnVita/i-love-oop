@@ -5,7 +5,7 @@
 
 using namespace std;
 
-string replace(const string &haystack, const string &needle, const string &replace);
+string Replace(const string &haystack, const string &needle, const string &replace);
 
 int main(int argc, char * argv[])
 {
@@ -39,12 +39,12 @@ int main(int argc, char * argv[])
 	}
 
 	const string searchString = argv[3];
-	string replaceString = argv[4];
+	const string replaceString = argv[4];
 	string stringToChange;
 
 	while (getline(input, stringToChange))
 	{
-		stringToChange = replace(stringToChange, searchString, replaceString);
+		stringToChange = Replace(stringToChange, searchString, replaceString);
 		output << stringToChange + '\n';
 	}
 
@@ -57,15 +57,16 @@ int main(int argc, char * argv[])
     return 0;
 }
 
-string replace(const string &haystack, const string &needle, const string &replace)
+string Replace(const string &haystack, const string &needle, const string &replace)
 {
-	int lastFoundedPos = 0, currFoundedPos = 0;
+	int prevPos = 0, currFoundedPos = 0;
 	string result = "";
-	while ((currFoundedPos = haystack.find(needle, lastFoundedPos)) != string::npos)
+
+	while ((currFoundedPos = haystack.find(needle, prevPos)) != string::npos)
 	{
-		result += haystack.substr(lastFoundedPos, currFoundedPos - lastFoundedPos);
+		result += haystack.substr(prevPos, currFoundedPos - prevPos);
 		result += replace;
-		lastFoundedPos = currFoundedPos + needle.length();
+		prevPos = currFoundedPos + needle.length();
 	}
-	return result += haystack.substr(lastFoundedPos);
+	return result += haystack.substr(prevPos);
 }
