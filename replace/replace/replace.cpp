@@ -12,7 +12,7 @@ int main(int argc, char * argv[])
 	if (argc != 5)
 	{
 		cout << "Invalid arguments count\n"
-			<< "Usage: replace.exe <input file><output file><search string><replace string>\n";
+			 << "Usage: replace.exe <input file><output file><search string><replace string>\n";
 		return 1;
 	}
 
@@ -63,7 +63,6 @@ string replace(const string &haystack, const string &needle, const string &repla
 	string result = "";
 	while ((currFoundedPos = haystack.find(needle, lastFoundedPos)) != string::npos)
 	{
-		cout << currFoundedPos;
 		result += haystack.substr(lastFoundedPos, currFoundedPos - lastFoundedPos);
 		result += replace;
 		lastFoundedPos = currFoundedPos + needle.length();
