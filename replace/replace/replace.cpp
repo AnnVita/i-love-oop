@@ -62,11 +62,11 @@ string Replace(const string &haystack, const string &needle, const string &repla
 	int prevPos = 0, currFoundedPos = 0;
 	string result = "";
 
-	while ((currFoundedPos = haystack.find(needle, prevPos)) != string::npos)
+	while ((currFoundedPos = int(haystack.find(needle, prevPos))) != string::npos)
 	{
 		result += haystack.substr(prevPos, currFoundedPos - prevPos);
 		result += replace;
-		prevPos = currFoundedPos + needle.length();
+		prevPos = currFoundedPos + int(needle.length());
 	}
 	return result += haystack.substr(prevPos);
 }
