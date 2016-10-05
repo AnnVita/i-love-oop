@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
 
 static const int DEC_RADIX = 10;
 static const int MAX_RADIX = 36;
@@ -9,16 +10,17 @@ static const int MIN_RADIX = 2;
 
 using namespace std;
 
-int CharToInt(char const &ch);
-bool CorrectInputRadix(int const &radix);
+int CharToInt(char ch);
 int StringToInt(const string &str, int radix, bool &wasError);
+bool CorrectInputRadix(int radix);
+bool OverflowAtAddition(int addendum1, int addendum2);
+bool OverflowAtMultiplication(int multiplier1, int multiplier2);
+bool DigitValueBelongToRadix(int digitValue, int radix);
+int Pow(int base, int exponent, bool &wasError);
+char IntToChar(int integer);
+string IntToString(int n, int radix, bool &wasError);
 
-//void StringIntToString(int n, int radix, bool &wasError);
-bool OverflowAtAddition(int const &addendum1, int const &addendum2);
-bool OverflowAtMultiplication(int const &multiplier1, int const &multiplier2);
-bool DigitValueBelongToRadix(int const &digitValue, int const &radix);
-int Pow(int const &base, int const &exponent, bool &wasError);
-//int TransferDecimalToAnother(int const &decimal, int const &destinationRadix);
+string TranslateFromOneRadixToAnother(int sourceNotation, int destinationNotation, string const& valueForTranslate);
 
 int main(int argc, char * argv[])
 {
@@ -29,11 +31,9 @@ int main(int argc, char * argv[])
 		return 1;
 	}
 
-	int result,
-		sourceNotation = stoi(argv[1]),
+	int sourceNotation = stoi(argv[1]),
 		destinationNotation = stoi(argv[2]);
-	string numValue = argv[3];
-	bool wasError = false;
+	string valueToTranslate = argv[3], translatedValue;
 
 	if (!CorrectInputRadix(sourceNotation) || !CorrectInputRadix(destinationNotation))
 	{
@@ -42,18 +42,49 @@ int main(int argc, char * argv[])
 		return 1;
 	}
 
-	result = StringToInt(numValue, sourceNotation, wasError);
+	translatedValue = TranslateFromOneRadixToAnother(sourceNotation, destinationNotation, valueToTranslate);
+	if (translatedValue.size() != 0)
+	{
+		cout << translatedValue;
+	}
+	else
+	{
+		cout << "An error has occurred.\nCheck your entries, please.\n";
+		return 1;
+	}
+	
 	return 0;
 }
 
-int CharToInt(char const &ch)
+string TranslateFromOneRadixToAnother(int sourceNotation, int destinationNotation, string const& valueForTranslate)
+{
+	int decimalValue;
+	string result;
+	bool wasError = false;
+	decimalValue = StringToInt(valueForTranslate, sourceNotation, wasError);
+	if (wasError)
+	{
+		return "";
+	}
+	else
+	{
+		result = IntToString(decimalValue, destinationNotation, wasError);
+		if (wasError)
+		{
+			return "";
+		}
+	}
+	return result;
+}
+
+int CharToInt(char ch)
 {
 	int number = -1;
 	bool numericCh = ((ch >= '0') && (ch <= '9')),
 		alphabeticCh = ((ch >= 'A') && (ch <= 'Z'));
 	if (numericCh)
 	{
-		number = int(ch) - int('0');
+		number = static_cast<int>(ch - '0');
 	}
 	else if (alphabeticCh)
 	{
@@ -62,22 +93,38 @@ int CharToInt(char const &ch)
 	return number;
 }
 
-bool CorrectInputRadix(int const &radix)
+char IntToChar(int value)
+{
+	char ch = -1;
+	bool numericCh = ((value >= 0) && (value <= 9)),
+		alphabeticCh = ((value >= 10) && (value < MAX_RADIX));
+	if (numericCh)
+	{
+		ch = static_cast<char>(value + '0');
+	}
+	else if (alphabeticCh)
+	{
+		ch = static_cast<char>(value + 'A' - DEC_RADIX);
+	}
+	return ch;
+}
+
+bool CorrectInputRadix(int radix)
 {
 	return ((radix >= MIN_RADIX) && (radix <= MAX_RADIX));
 }
 
-bool OverflowAtAddition(int const &addendum1, int const &addendum2)
+bool OverflowAtAddition(int addendum1, int addendum2)
 {
 	return ((addendum1 > 0) && (addendum2 > 0) && (addendum1 > (INT_MAX - addendum2)));
 }
 
-bool OverflowAtMultiplication(int const &multiplier1, int const &multiplier2)
+bool OverflowAtMultiplication(int multiplier1, int multiplier2)
 {
 	return (multiplier1 >= INT_MAX / multiplier2);
 }
 
-int Pow(int const &base, int const &exponent, bool &wasError)
+int Pow(int base, int exponent, bool &wasError)
 {
 	int i, result = 1;
 	for (i = exponent; i > 0; i--)
@@ -94,7 +141,7 @@ int Pow(int const &base, int const &exponent, bool &wasError)
 	return result;
 }
 
-bool DigitValueBelongToRadix(int const &digitValue, int const &radix)
+bool DigitValueBelongToRadix(int digitValue, int radix)
 {
 	return (digitValue < radix) && (digitValue >= 0);
 }
@@ -102,9 +149,8 @@ bool DigitValueBelongToRadix(int const &digitValue, int const &radix)
 int StringToInt(const string &str, int radix, bool &wasError)
 {
 	bool isNegative = (str[0] == '-');
-	int i, digit, digitIndex, powOfTheRadix,
-		result = 0;
-	for (digitIndex = 0, i = str.length() - 1; (i >= (int)isNegative) && (!wasError); i--, digitIndex++)
+	int i, digit, digitIndex, powOfTheRadix, result = 0;
+	for (digitIndex = 0, i = str.length() - 1; (i >= (isNegative)) && (!wasError); i--, digitIndex++)
 	{
 		digit = CharToInt(str[i]);
 		wasError = !DigitValueBelongToRadix(digit, radix);
@@ -114,5 +160,35 @@ int StringToInt(const string &str, int radix, bool &wasError)
 		wasError = (wasError) || (OverflowAtAddition(result, digit));
 		result = (!wasError) ? result + digit: -1 ;
 	}
+	return (isNegative) ? result * -1 : result;
+}
+
+string IntToString(int n, int radix, bool &wasError)
+{
+	bool isNegative = (n < 0);
+	string result;
+	int reside;
+	char digit;
+	if (isNegative)
+	{
+		n *= -1;
+		result += '-';
+	}
+	reside = n % radix;
+	while (n >= radix)
+	{
+		digit = IntToChar(reside);
+		if (digit < 0)
+		{
+			wasError = true;
+			break;
+		}
+		result += digit;
+		n /= radix;
+		reside = n % radix;
+	}
+	digit = IntToChar(reside);
+	result += digit;
+	reverse(result.begin() + (int)(isNegative), result.end()); 
 	return result;
 }
