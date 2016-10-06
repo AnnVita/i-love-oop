@@ -12,7 +12,7 @@ typedef array <double, MATRIX_SIZE> MatrixRow;
 typedef array <MatrixRow, MATRIX_SIZE> Matrix;
 
 bool FileIsEmpty(ifstream &file);
-void ReadMatrixFrom(ifstream &file, Matrix & destMatrix);
+bool ReadMatrixFrom(ifstream &file, Matrix & destMatrix);
 double GetDeterminantOf(const Matrix &matrix);
 double GetMinor(const Matrix & matrix, const size_t row, const size_t colomn);
 bool GetTheInverseMatrix(const Matrix & originalMatrix, const Matrix & inversedMatrix);
@@ -42,7 +42,11 @@ int main(int argc, char * argv[])
     
 	Matrix originalMatrix, inverseMatrix;
 
-	ReadMatrixFrom(input, originalMatrix);
+	if (!ReadMatrixFrom(input, originalMatrix))
+	{
+		cout << "An error occurred while reading matrix from file.\nPlease, check number of values. In the file should be matrix " << MATRIX_SIZE << "x" << MATRIX_SIZE;
+		return EXIT_FAILURE;
+	}
 
 	if (!GetTheInverseMatrix(originalMatrix, inverseMatrix))
 	{
@@ -53,4 +57,5 @@ int main(int argc, char * argv[])
 	PrintMatrixTo(cout, inverseMatrix);
 
 	return EXIT_SUCCESS;
+;
 }
