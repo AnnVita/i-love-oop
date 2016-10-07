@@ -30,13 +30,15 @@ int main(int argc, char * argv[])
 	ifstream input(argv[1]);
 	if (!input.is_open)
 	{
-		cout << argv[1] << ": failed to open.\n Please, check the existence of the file or enter the name of another file.";
+		cout << argv[1] << ": failed to open.\n" 
+			<< "Please, check the existence of the file or enter the name of another file.";
 		return EXIT_FAILURE;
 	}
 
 	if (FileIsEmpty(input))
 	{
-		cout << "File is empty.\nPlease, enter the matrix to the file or enter the name of another file.";
+		cout << "File is empty.\n"
+			<< "Please, enter the matrix to the file or enter the name of another file.";
 		return EXIT_FAILURE;
 	}
     
@@ -44,18 +46,24 @@ int main(int argc, char * argv[])
 
 	if (!ReadMatrixFrom(input, originalMatrix))
 	{
-		cout << "An error occurred while reading matrix from file.\nPlease, check number of values. In the file should be matrix " << MATRIX_SIZE << "x" << MATRIX_SIZE;
+		cout << "An error occurred while reading matrix from file.\n"
+			<< "Please, check number of values. In the file should be matrix " << MATRIX_SIZE << "x" << MATRIX_SIZE;
 		return EXIT_FAILURE;
 	}
 
 	if (!GetTheInverseMatrix(originalMatrix, inverseMatrix))
 	{
-		cout << "The determinant of the matrix is zero.\nSo, the inverse matrix does not exist.";
+		cout << "The determinant of the matrix is zero.\n"
+			<< "The inverse matrix does not exist.";
 		return EXIT_FAILURE;
 	}
 
 	PrintMatrixTo(cout, inverseMatrix);
 
 	return EXIT_SUCCESS;
-;
+}
+
+bool FileIsEmpty(ifstream &file)
+{
+	return file.eof();
 }
