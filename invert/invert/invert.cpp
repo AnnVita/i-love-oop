@@ -51,7 +51,7 @@ int main(int argc, char * argv[])
 			<< "Please, check number of values. In the file should be matrix " << MATRIX_SIZE << "x" << MATRIX_SIZE;
 		return EXIT_FAILURE;
 	}
-
+	
 	if (!GetTheInverseMatrix(originalMatrix, inverseMatrix))
 	{
 		cout << "The determinant of the matrix is zero.\n"
@@ -106,4 +106,17 @@ double GetCofactor(const Matrix &matrix, const size_t row, const size_t colomn)
 	}
 	cofactor = (minorValues[0] * minorValues[3]) - (minorValues[1] * minorValues[2]);
 	return cofactor;
+}
+
+double GetDeterminantOf(const Matrix &matrix)
+{
+	const size_t ROW_FOR_DETERMINANT_COUNT = 0;
+	double determinant = 0;
+	int signSwitch;
+	size_t colomn;
+	for (colomn = 0, signSwitch = 1; colomn < MATRIX_SIZE; colomn++, signSwitch *= -1)
+	{
+		determinant += matrix[ROW_FOR_DETERMINANT_COUNT][colomn] * GetCofactor(matrix, ROW_FOR_DETERMINANT_COUNT, colomn) * signSwitch;
+	}
+	return determinant;
 }
