@@ -28,7 +28,7 @@ int main(int argc, char * argv[])
 	}
 
 	ifstream input(argv[1]);
-	if (!input.is_open)
+	if (!input.is_open())
 	{
 		cout << argv[1] << ": failed to open.\n" 
 			<< "Please, check the existence of the file or enter the name of another file.";
@@ -41,7 +41,7 @@ int main(int argc, char * argv[])
 			<< "Please, enter the matrix to the file or enter the name of another file.";
 		return EXIT_FAILURE;
 	}
-    
+
 	Matrix originalMatrix, inverseMatrix;
 
 	if (!ReadMatrixFrom(input, originalMatrix))
@@ -59,11 +59,27 @@ int main(int argc, char * argv[])
 	}
 
 	PrintMatrixTo(cout, inverseMatrix);
-
+	
 	return EXIT_SUCCESS;
 }
 
 bool FileIsEmpty(ifstream &file)
 {
-	return file.eof();
+	return file.peek() == EOF;
+}
+
+bool ReadMatrixFrom(ifstream &file, Matrix & destMatrix)
+{
+	for (int j, i = 0; i < MATRIX_SIZE; i++)
+	{
+		for (j = 0; j < MATRIX_SIZE; j++)
+		{
+			if (file.eof())
+			{
+				return false;
+			}
+			file >> destMatrix[i][j];
+		}
+	}
+	return true;
 }
