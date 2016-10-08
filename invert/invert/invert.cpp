@@ -5,6 +5,7 @@
 
 static const int NUM_OF_ARGUMENTS = 2;
 static const int MATRIX_SIZE = 3;
+static const int MINOR_SIZE = 2;
 static const double ACCURACY = 0.0001;
 
 using namespace std;
@@ -14,7 +15,7 @@ typedef array <MatrixRow, MATRIX_SIZE> Matrix;
 bool FileIsEmpty(ifstream &file);
 bool ReadMatrixFrom(ifstream &file, Matrix & destMatrix);
 double GetDeterminantOf(const Matrix &matrix);
-double GetMinor(const Matrix & matrix, const size_t row, const size_t colomn);
+double GetCofactor(const Matrix & matrix, const size_t row, const size_t colomn);
 bool GetTheInverseMatrix(const Matrix & originalMatrix, const Matrix & inversedMatrix);
 void PrintMatrixTo(ostream &output, const Matrix & matrix);
 
@@ -57,9 +58,9 @@ int main(int argc, char * argv[])
 			<< "The inverse matrix does not exist.";
 		return EXIT_FAILURE;
 	}
-
-	PrintMatrixTo(cout, inverseMatrix);
 	
+	PrintMatrixTo(cout, inverseMatrix);
+
 	return EXIT_SUCCESS;
 }
 
@@ -70,7 +71,7 @@ bool FileIsEmpty(ifstream &file)
 
 bool ReadMatrixFrom(ifstream &file, Matrix & destMatrix)
 {
-	for (int j, i = 0; i < MATRIX_SIZE; i++)
+	for (size_t j, i = 0; i < MATRIX_SIZE; i++)
 	{
 		for (j = 0; j < MATRIX_SIZE; j++)
 		{
@@ -82,4 +83,27 @@ bool ReadMatrixFrom(ifstream &file, Matrix & destMatrix)
 		}
 	}
 	return true;
+}
+
+double GetCofactor(const Matrix &matrix, const size_t row, const size_t colomn)
+{
+	array <double, MINOR_SIZE * 2> minorValues;
+	int minorValueNumber = 0;
+	double cofactor;
+	for (size_t j, i = 0; i < MATRIX_SIZE; i++)
+	{
+		for (j = 0; (j < MATRIX_SIZE) && (i != row); j++)
+		{
+			if (j == colomn)
+			{
+				continue;
+			}
+			else
+			{
+				minorValues[minorValueNumber++] = matrix[i][j];
+			}
+		}
+	}
+	cofactor = (minorValues[0] * minorValues[3]) - (minorValues[1] * minorValues[2]);
+	return cofactor;
 }
