@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <array>
+#include <math.h>
 
 static const int NUM_OF_ARGUMENTS = 2;
 static const int MATRIX_SIZE = 3;
@@ -16,6 +17,7 @@ bool FileIsEmpty(ifstream &file);
 bool ReadMatrixFrom(ifstream &file, Matrix & destMatrix);
 double GetDeterminantOf(const Matrix &matrix);
 double GetCofactor(const Matrix & matrix, const size_t row, const size_t colomn);
+double RoundNumberToSpecifiedAccuracy(double const number, double const accuracy);
 bool GetTheInverseMatrix(const Matrix & originalMatrix, Matrix & inversedMatrix);
 void PrintMatrixTo(ostream &output, const Matrix & matrix);
 
@@ -121,12 +123,16 @@ double GetDeterminantOf(const Matrix &matrix)
 	return determinant;
 }
 
+double RoundNumberToSpecifiedAccuracy(double const number, double const accuracy)
+{
+	return (round(number * accuracy) / accuracy);
+}
+
 bool GetTheInverseMatrix(const Matrix & originalMatrix, Matrix & inversedMatrix)
 {
 	int signSwitch = 1;
 	double matrixDeterminant = GetDeterminantOf(originalMatrix);
-	matrixDeterminant = round(matrixDeterminant * ACCURACY) / ACCURACY;
-	if (matrixDeterminant == 0)
+	if (RoundNumberToSpecifiedAccuracy(matrixDeterminant, ACCURACY) == 0)
 	{
 		return false;
 	}
@@ -136,6 +142,7 @@ bool GetTheInverseMatrix(const Matrix & originalMatrix, Matrix & inversedMatrix)
 		for (j = 0; j < MATRIX_SIZE; j++, signSwitch *= -1)
 		{
 			inversedMatrix[i][j] = signSwitch * GetCofactor(originalMatrix, i, j) / matrixDeterminant;
+			inversedMatrix[i][j] = RoundNumberToSpecifiedAccuracy(inversedMatrix[i][j], ACCURACY);
 		}
 	}
 	return true;
