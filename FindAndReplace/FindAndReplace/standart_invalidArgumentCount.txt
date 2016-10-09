@@ -1,0 +1,2 @@
+Invalid arguments count
+Usage: FindAndReplace.exe <search-string> <replace-string>
