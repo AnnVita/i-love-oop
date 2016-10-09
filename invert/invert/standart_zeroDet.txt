@@ -1,0 +1,2 @@
+The determinant of the matrix is zero.
+The inverse matrix does not exist.

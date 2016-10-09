@@ -1,0 +1,2 @@
+An error occurred while reading matrix from file.
+Please, check number of values. In the file should be matrix 3x3

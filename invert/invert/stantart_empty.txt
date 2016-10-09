@@ -1,0 +1,2 @@
+File is empty.
+Please, enter the matrix to the file or enter the name of another file.

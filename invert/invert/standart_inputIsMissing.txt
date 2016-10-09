@@ -1,0 +1,2 @@
+not_exists.txt: failed to open.
+Please, check the existence of the file or enter the name of another file.
