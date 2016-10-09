@@ -6,7 +6,7 @@
 static const int NUM_OF_ARGUMENTS = 2;
 static const int MATRIX_SIZE = 3;
 static const int MINOR_SIZE = 2;
-static const double ACCURACY = 0.0001;
+static const double ACCURACY = 1000.0;
 
 using namespace std;
 typedef array <double, MATRIX_SIZE> MatrixRow;
@@ -16,7 +16,7 @@ bool FileIsEmpty(ifstream &file);
 bool ReadMatrixFrom(ifstream &file, Matrix & destMatrix);
 double GetDeterminantOf(const Matrix &matrix);
 double GetCofactor(const Matrix & matrix, const size_t row, const size_t colomn);
-bool GetTheInverseMatrix(const Matrix & originalMatrix, const Matrix & inversedMatrix);
+bool GetTheInverseMatrix(const Matrix & originalMatrix, Matrix & inversedMatrix);
 void PrintMatrixTo(ostream &output, const Matrix & matrix);
 
 int main(int argc, char * argv[])
@@ -119,4 +119,36 @@ double GetDeterminantOf(const Matrix &matrix)
 		determinant += matrix[ROW_FOR_DETERMINANT_COUNT][colomn] * GetCofactor(matrix, ROW_FOR_DETERMINANT_COUNT, colomn) * signSwitch;
 	}
 	return determinant;
+}
+
+bool GetTheInverseMatrix(const Matrix & originalMatrix, Matrix & inversedMatrix)
+{
+	int signSwitch = 1;
+	double matrixDeterminant = GetDeterminantOf(originalMatrix);
+	matrixDeterminant = round(matrixDeterminant * ACCURACY) / ACCURACY;
+	if (matrixDeterminant == 0)
+	{
+		return false;
+	}
+
+	for (size_t j, i = 0; i < MATRIX_SIZE; i++)
+	{
+		for (j = 0; j < MATRIX_SIZE; j++, signSwitch *= -1)
+		{
+			inversedMatrix[i][j] = signSwitch * GetCofactor(originalMatrix, i, j) / matrixDeterminant;
+		}
+	}
+	return true;
+}
+
+void PrintMatrixTo(ostream &output, const Matrix & matrix)
+{
+	for (size_t j = 0; j < MATRIX_SIZE; j++)
+	{
+		for (size_t i = 0; i < MATRIX_SIZE; i++)
+		{
+			output << matrix[i][j] << '\t';
+		}
+		output << '\n';
+	}
 }
