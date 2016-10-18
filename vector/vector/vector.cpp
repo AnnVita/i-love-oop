@@ -9,6 +9,13 @@ int main(int argc, char * argv[])
 
 	copy(istream_iterator<double>(cin), istream_iterator<double>(), back_inserter(numbers));
 
+	double averageOfPositive = GetAverageOfPositiveElements(numbers);
+	AddToAllElements(numbers, averageOfPositive);
+
+	for (const double & element : numbers)
+	{
+		cout << element << ' ';
+	}
 	
 	return EXIT_SUCCESS;
 }
