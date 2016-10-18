@@ -11,6 +11,7 @@ int main(int argc, char * argv[])
 
 	double averageOfPositive = GetAverageOfPositiveElements(numbers);
 	AddToAllElements(numbers, averageOfPositive);
+	sort(numbers.begin(), numbers.end());
 
 	for (const double & element : numbers)
 	{
