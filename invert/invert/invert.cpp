@@ -10,8 +10,10 @@ static const int MINOR_SIZE = 2;
 static const double ACCURACY = 1000.0;
 
 using namespace std;
-typedef array <double, MATRIX_SIZE> MatrixRow;
+//typedef array <double, MATRIX_SIZE> MatrixRow;
 typedef array <MatrixRow, MATRIX_SIZE> Matrix;
+
+using MatrixRow = array<double, MATRIX_SIZE>;
 
 bool FileIsEmpty(ifstream &file);
 bool ReadMatrixFrom(ifstream &file, Matrix & destMatrix);
@@ -73,15 +75,14 @@ bool FileIsEmpty(ifstream &file)
 
 bool ReadMatrixFrom(ifstream &file, Matrix & destMatrix)
 {
-	for (size_t j, i = 0; i < MATRIX_SIZE; i++)
+	for (size_t i = 0; i < MATRIX_SIZE; ++i)
 	{
-		for (j = 0; j < MATRIX_SIZE; j++)
+		for (size_t j = 0; j < MATRIX_SIZE; ++j)
 		{
-			if (file.eof())
+			if (file >> destMatrix[i][j])
 			{
 				return false;
 			}
-			file >> destMatrix[i][j];
 		}
 	}
 	return true;
