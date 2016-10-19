@@ -15,7 +15,7 @@ BOOST_AUTO_TEST_CASE(must_convert_empty_string_to_empty_string)
 	VerifyFindAndReplace("", "", "", "");
 }
 
-BOOST_AUTO_TEST_CASE(if_admission_to_enter_an_empty_string_must_return_empty_string)
+BOOST_AUTO_TEST_CASE(if_in_input_an_empty_string_must_return_empty_string)
 {
 	VerifyFindAndReplace("", "smth", "empty", "");
 }
