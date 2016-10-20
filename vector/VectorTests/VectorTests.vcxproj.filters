@@ -39,7 +39,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\vector\vectorFunctions.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

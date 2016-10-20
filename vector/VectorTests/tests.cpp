@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(must_count_average_of_all_positive_values_in_vector)
 	VerifyGetAverageOfPositiveElements(testVectorWithValues, expectedValue);
 }
 
-BOOST_AUTO_TEST_CASE(must_return_zero_if_function_dont_found_positive_numbers)
+BOOST_AUTO_TEST_CASE(must_return_zero_if_function_dont_found_positive_numbers)//does
 {
 	double expectedValue = 0;
 	VerifyGetAverageOfPositiveElements(emptyVector, expectedValue);

@@ -1,15 +1,24 @@
 #include "stdafx.h"
 #include "vectorFunctions.h"
 
-double GetAverageOfPositiveElements(DoubleVector & elements)
+void ProcessVector(DoubleVector & vector)
+{
+	if (vector.size() > 1)
+	{
+		double averageOfPositive = GetAverageOfPositiveElements(vector);
+		AddToAllElements(vector, averageOfPositive);
+	}
+}
+
+double GetAverageOfPositiveElements(const DoubleVector & elements)
 {
 	double result = 0;
 	size_t positiveNumCounter = 0;
-	for (const double & n : elements)
+	for (const double & element : elements)
 	{
-		if (n > 0)
+		if (element > 0)
 		{
-			result += n;
+			result += element;
 			++positiveNumCounter;
 		}
 	}
@@ -18,8 +27,8 @@ double GetAverageOfPositiveElements(DoubleVector & elements)
 
 void AddToAllElements(DoubleVector & elements, double numberToAdd)
 {
-	for (double & n : elements)
+	for (double & element : elements)
 	{
-		n += numberToAdd;
+		element += numberToAdd;
 	}
 }

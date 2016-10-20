@@ -9,14 +9,10 @@ int main(int argc, char * argv[])
 
 	copy(istream_iterator<double>(cin), istream_iterator<double>(), back_inserter(numbers));
 
-	double averageOfPositive = GetAverageOfPositiveElements(numbers);
-	AddToAllElements(numbers, averageOfPositive);
-	sort(numbers.begin(), numbers.end());
+	ProcessVector(numbers);
 
-	for (const double & element : numbers)
-	{
-		cout << element << ' ';
-	}
+	sort(numbers.begin(), numbers.end());
+	copy(numbers.begin(), numbers.end(), ostream_iterator<int>(cout, " "));
 	
 	return EXIT_SUCCESS;
 }
