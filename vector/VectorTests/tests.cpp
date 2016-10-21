@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_SUITE(GetAverageOfPositiveElements_function)
 	    VerifyGetAverageOfPositiveElements(testVectorWithValues, 6.0);
     }
 
-    BOOST_AUTO_TEST_CASE(must_return_zero_if_vector_do_no_have_positive_elements)
+    BOOST_AUTO_TEST_CASE(must_return_zero_if_vector_is_empty)
     {
 	    VerifyGetAverageOfPositiveElements(emptyVector, 0);
     }
