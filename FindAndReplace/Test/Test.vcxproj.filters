@@ -25,7 +25,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\FindAndReplace\FindAndReplace.h">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -39,7 +39,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\FindAndReplace\FindAndReplace.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
