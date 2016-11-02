@@ -27,7 +27,6 @@ namespace
 BOOST_AUTO_TEST_SUITE(GetAverageOfPositiveElements_function)
     BOOST_AUTO_TEST_CASE(must_count_average_of_all_positive_values_in_vector)
     {
-	    double expectedValue = 6;
 	    VerifyGetAverageOfPositiveElements(testVectorWithValues, 6.0);
     }
 

@@ -12,7 +12,7 @@ int main(int argc, char * argv[])
 	ProcessVector(numbers);
 
 	sort(numbers.begin(), numbers.end());
-	copy(numbers.begin(), numbers.end(), ostream_iterator<int>(cout, " "));
+	copy(numbers.begin(), numbers.end(), ostream_iterator<double>(cout, " "));
 	
 	return EXIT_SUCCESS;
 }

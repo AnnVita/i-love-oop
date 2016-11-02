@@ -3,7 +3,8 @@
 
 std::string FindAndReplace(const std::string &subject, const std::string &search, const std::string &replace)
 {
-	size_t prevPos = 0, currFoundedPos = 0;
+	size_t prevPos = 0;
+	size_t currFoundedPos = 0;
 	std::string result = "";
 
 	if (search.length() == 0)

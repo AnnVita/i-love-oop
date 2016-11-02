@@ -26,7 +26,7 @@ int main(int argc, char * argv[])
 
 	stringToChange = FindAndReplace(stringToChange, searchString, replaceString);
 
-	std::cout << stringToChange << '\n';
+	std::cout << stringToChange << std::endl;
 	
 	return EXIT_SUCCESS;
 }
