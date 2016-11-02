@@ -30,6 +30,7 @@ namespace
 		InsertNewWordIntoDictionary(word, translation, receiveDictionary);
 		BOOST_CHECK(receiveDictionary == expectedDictionary);
 	}
+
 }
 
 BOOST_AUTO_TEST_SUITE(FillDictionaryFrom_function)
@@ -76,22 +77,4 @@ BOOST_AUTO_TEST_SUITE(InsertNewWordIntoDictionary_function)
 		Dictionary expectedDictionary = {};
 		VerifyInsertNewWordIntoDictionary("", "", expectedDictionary);
 	}
-BOOST_AUTO_TEST_SUITE_END();
-
-BOOST_AUTO_TEST_SUITE(ProcessUserEntries_function)
-BOOST_AUTO_TEST_CASE(must_print_translation_if_it_exists)
-{
-	std::stringstream expectedOutput, input, output;
-	expectedOutput << ">собака";
-	ProcessUserEntries(filledDictionary, "dog", input, output);
-	BOOST_CHECK(output == expectedOutput);
-}
-BOOST_AUTO_TEST_CASE(must_ask_about_translation_if_it_not_found_and_insert_new_value_to_dictionary)
-{
-
-}
-BOOST_AUTO_TEST_CASE(must_ask_about_translation_if_it_not_found_and_ignore_empty_string)
-{
-
-}
 BOOST_AUTO_TEST_SUITE_END();
