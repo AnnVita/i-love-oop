@@ -4,13 +4,10 @@
 
 namespace
 {
-	std::string singleValueStr = "single value \n";
 	Dictionary emptyDictionary = {};
 	Dictionary filledDictionary = { {"dog", "собака"},
 	                                {"cat", "кот"},
 									{"database", "база данных"} };
-	
-	std::stringstream(emptySource);
 
 	void VerifyFillDictionaryFrom(std::stringstream & source, const Dictionary & expectedDictionary)
 	{
@@ -36,13 +33,14 @@ namespace
 BOOST_AUTO_TEST_SUITE(FillDictionaryFrom_function)
     BOOST_AUTO_TEST_CASE(must_return_empty_map_if_input_is_empty)
     {
+		std::stringstream emptySource;
 		VerifyFillDictionaryFrom(emptySource, emptyDictionary);
     }
 
 	BOOST_AUTO_TEST_CASE(must_return_empty_map_if_input_contains_single_value)
 	{
 		std::stringstream singleValueSource;
-		singleValueSource << "single value \n";
+		singleValueSource << "single value" << std::endl;
 		VerifyFillDictionaryFrom(singleValueSource, emptyDictionary);
 	}
 
