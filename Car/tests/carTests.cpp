@@ -19,9 +19,15 @@ BOOST_FIXTURE_TEST_SUITE(Car, CarFixture)
 			BOOST_CHECK(car.TurnOnEngine());
 		}
 
-		BOOST_AUTO_TEST_CASE(engine_cannot_be_turned_off)
+		BOOST_AUTO_TEST_CASE(engine_cannot_be_turned_off_when_it_already_off)
 		{
 			BOOST_CHECK(!car.TurnOffEngine());
+		}
+
+		BOOST_AUTO_TEST_CASE(engine_cannot_be_turned_onf_when_it_already_on)
+		{
+			car.TurnOnEngine();
+			BOOST_CHECK(!car.TurnOnEngine());
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 
@@ -39,5 +45,7 @@ BOOST_FIXTURE_TEST_SUITE(Car, CarFixture)
 	{
 		BOOST_CHECK(car.GetGear() == Gear::NEUTRAL);
 	}
+
+
 
 BOOST_AUTO_TEST_SUITE_END()

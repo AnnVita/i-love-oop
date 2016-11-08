@@ -35,8 +35,7 @@ public:
 	Gear GetGear() const;
 
 private:
-	bool IsSpeedInRange(int speed, int gear) const;
-	bool IsDirectionCorrect(Direction direction, int gear) const;
+	bool IsSpeedInRange(int speed, Gear gear) const;
 
 	bool m_engineOn = false;
 	Direction m_direction;
