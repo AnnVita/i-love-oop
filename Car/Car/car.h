@@ -32,14 +32,14 @@ public:
 	bool IsTurnedOn() const;
 	Direction GetDirection() const;
 	int GetSpeed() const;
-	int GetGear() const;
+	Gear GetGear() const;
 
 private:
 	bool IsSpeedInRange(int speed, int gear) const;
 	bool IsDirectionCorrect(Direction direction, int gear) const;
 
 	bool m_engineOn = false;
-	Direction m_direction = Direction::NONE;
-	int m_gear = 0;
+	Direction m_direction;
+	Gear m_gear;
 	int m_speed = 0;
 };

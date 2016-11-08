@@ -14,6 +14,21 @@ bool CCar::IsTurnedOn() const
 	return m_engineOn;
 }
 
+int CCar::GetSpeed() const
+{
+	return m_speed;
+}
+
+Direction CCar::GetDirection() const
+{
+	return m_direction;
+}
+
+Gear CCar::GetGear() const
+{
+	return m_gear;
+}
+
 bool CCar::TurnOnEngine()
 {
 	if (!m_engineOn)
@@ -35,3 +50,4 @@ bool CCar::TurnOffEngine()
 
 	return false;
 }
+
