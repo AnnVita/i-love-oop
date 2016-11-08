@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "stdafx.h"
 #include <iostream>
 #include "sieveFunctions.h"
 
@@ -20,6 +19,14 @@ int main(int argc, char * argv[])
 	{
 		std::cout << "Invalid argument" << std::endl
 			<< "Upper bound in [" << MIN_PRIME << ", " << MAX_BOUND_VALUE << "]" << std::endl;
+		return EXIT_FAILURE;
+	}
+
+	std::set<int> primeNumbers = GeneratePrimeNumbersSet(upperBound);
+
+	for (std::set<int>::iterator it = primeNumbers.begin(); it != primeNumbers.end(); ++it)
+	{
+		std::cout << *it << std::endl;
 	}
 
     return EXIT_SUCCESS;

@@ -3,7 +3,7 @@
 
 bool InsideValidRange(int upperBound)
 {
-	return ((upperBound >= MIN_PRIME) && (upperBound < MAX_BOUND_VALUE));
+	return ((upperBound >= MIN_PRIME) && (upperBound <= MAX_BOUND_VALUE));
 }
 
 std::vector<bool> FillSieveVector(unsigned int upperBound)
@@ -11,7 +11,7 @@ std::vector<bool> FillSieveVector(unsigned int upperBound)
 	if (!InsideValidRange(upperBound))
 		return {};
 
-	std::vector<bool> sieve(++upperBound, true);
+	std::vector<bool> sieve(upperBound + 1, true);
 	sieve[0] = sieve[1] = false;
 	for (unsigned int i = MIN_PRIME; i * i <= upperBound; ++i)
 	{
@@ -26,7 +26,7 @@ std::vector<bool> FillSieveVector(unsigned int upperBound)
 	return sieve;
 }
 
-std::set<int> GenerateSetOfPrimes(unsigned int upperBound)
+std::set<int> GeneratePrimeNumbersSet(unsigned int upperBound)
 {
 	if (!InsideValidRange(upperBound))
 		return {};
