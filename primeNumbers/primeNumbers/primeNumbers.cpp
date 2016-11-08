@@ -1,14 +1,9 @@
 #include "stdafx.h"
 #include "stdafx.h"
 #include <iostream>
+#include "sieveFunctions.h"
 
 const unsigned NECESSARY_NUMBER_OF_ARGUMENTS = 2;
-const unsigned MAX_BOUND_VALUE = 100000000;;
-
-bool InsideValidRange(int upperBound)
-{
-	return ((upperBound > 1) && (upperBound < MAX_BOUND_VALUE));
-}
 
 int main(int argc, char * argv[])
 {
@@ -24,7 +19,7 @@ int main(int argc, char * argv[])
 	if (!InsideValidRange(upperBound))
 	{
 		std::cout << "Invalid argument" << std::endl
-			<< "Upper bound in [2, " << MAX_BOUND_VALUE << "]" << std::endl;
+			<< "Upper bound in [" << MIN_PRIME << ", " << MAX_BOUND_VALUE << "]" << std::endl;
 	}
 
     return EXIT_SUCCESS;
