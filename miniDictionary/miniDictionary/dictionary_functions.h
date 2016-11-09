@@ -8,8 +8,8 @@
 using Dictionary = std::map <std::string, std::string>;
 static const std::string EXIT_STRING = "...";
 
-void ProcessProgramLoop(Dictionary & dictionary, std::istream & input, std::ostream & output);
-void ProcessUserEntries(Dictionary & dictionary, const std::string & userEntries, std::istream & input, std::ostream & output);
+void ProcessProgramLoop(Dictionary & dictionary, bool & wasChanged, std::istream & input, std::ostream & output);
+void ProcessUserEntries(Dictionary & dictionary, const std::string & userEntries, bool & wasChanged, std::istream & input, std::ostream & output);
 
 bool GetDictionaryFromFile(const std::string & fileName, Dictionary & newDictionary);
 void FillDictionaryFrom(std::istream & input, Dictionary & newDictionary);

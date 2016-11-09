@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "dictionary_functions.h"
 
-void ProcessProgramLoop(Dictionary & dictionary, std::istream & input, std::ostream & output)
+void ProcessProgramLoop(Dictionary & dictionary, bool & wasChanged, std::istream & input, std::ostream & output)
 {
 	std::string userEntries = "";
 
@@ -9,12 +9,12 @@ void ProcessProgramLoop(Dictionary & dictionary, std::istream & input, std::ostr
 
 	while (getline(input, userEntries) && userEntries != EXIT_STRING)
 	{
-		ProcessUserEntries(dictionary, userEntries, input, output);
+		ProcessUserEntries(dictionary, userEntries, wasChanged, input, output);
 		output << ">";
 	}
 }
 
-void ProcessUserEntries(Dictionary & dictionary, const std::string & userEntries, std::istream & input, std::ostream & output)
+void ProcessUserEntries(Dictionary & dictionary, const std::string & userEntries, bool & wasChanged, std::istream & input, std::ostream & output)
 {
 	std::string translation = GetTranslationOf(userEntries, dictionary);
 	if (!translation.empty())
@@ -29,6 +29,7 @@ void ProcessUserEntries(Dictionary & dictionary, const std::string & userEntries
 		{
 			InsertNewWordIntoDictionary(userEntries, translation, dictionary);
 			output << "Слово '" << userEntries << "' сохранено как '" << translation << "'." << std::endl;
+			wasChanged = true;
 		}
 		else
 		{

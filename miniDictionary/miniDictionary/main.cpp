@@ -18,17 +18,21 @@ int main(int argc, char *argv[])
 	SetConsoleOutputCP(1251);
 
 	std::string fileName = argv[1];
-
 	Dictionary dictionary;
+	bool wasChanged = false;
+
 	if (!GetDictionaryFromFile(fileName, dictionary))
 	{
 		std::cout << "Unable to open input file" << std::endl;
 		return EXIT_FAILURE;
 	}
 
-	ProcessProgramLoop(dictionary, std::cin, std::cout);
-	ProcessDictionaryRetention(dictionary, fileName, std::cin, std::cout);
+	ProcessProgramLoop(dictionary, wasChanged, std::cin, std::cout);
+	if (wasChanged)
+	{
+		ProcessDictionaryRetention(dictionary, fileName, std::cin, std::cout);
+	}
 
-	return 0;
+	return EXIT_SUCCESS;
 }
 
