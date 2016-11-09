@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_SUITE(GeneratePrimeNumbersSet_function)
 	BOOST_AUTO_TEST_CASE(must_make_empty_set)
 	{
 		std::set<int> expectedResult{};
-		std::set<int> result = GeneratePrimeNumbersSet(1);
+		auto result = GeneratePrimeNumbersSet(1);
 
 		BOOST_CHECK(result == expectedResult);
 	}
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_SUITE(GeneratePrimeNumbersSet_function)
 	BOOST_AUTO_TEST_CASE(must_make_single_value_set_when_upperBound_is_2)
 	{
 		std::set<int> expectedResult{ 2 };
-		std::set<int> result = GeneratePrimeNumbersSet(2);
+		auto result = GeneratePrimeNumbersSet(2);
 
 		BOOST_CHECK(result == expectedResult);
 	}
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_SUITE(GeneratePrimeNumbersSet_function)
 	BOOST_AUTO_TEST_CASE(must_make_set_when_upperBound_is_3)
 	{
 		std::set<int> expectedResult{ 2, 3 };
-		std::set<int> result = GeneratePrimeNumbersSet(3);
+		auto result = GeneratePrimeNumbersSet(3);
 
 		BOOST_CHECK(result == expectedResult);
 	}
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_SUITE(GeneratePrimeNumbersSet_function)
 	BOOST_AUTO_TEST_CASE(must_make_empty_set_when_upperBound_more_than_max_value)
 	{
 		std::set<int> expectedResult{};
-		std::set<int> result = GeneratePrimeNumbersSet(100000001);
+		auto result = GeneratePrimeNumbersSet(100000001);
 
 		BOOST_CHECK(result == expectedResult);
 	}
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_SUITE(GeneratePrimeNumbersSet_function)
 	BOOST_AUTO_TEST_CASE(must_make_set_of_46_primes)
 	{
 		size_t expectedResult = 46;
-		std::set<int> result = GeneratePrimeNumbersSet(200);
+		auto result = GeneratePrimeNumbersSet(200);
 
 		BOOST_CHECK(result.size() == expectedResult);
 	}
