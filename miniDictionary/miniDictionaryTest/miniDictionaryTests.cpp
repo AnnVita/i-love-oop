@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_SUITE(GetTranslationOf_function)
 BOOST_AUTO_TEST_SUITE_END();
 
 BOOST_AUTO_TEST_SUITE(InsertNewWordIntoDictionary_function)
-	BOOST_AUTO_TEST_CASE(must_return_dictionary_with_new_filed)//переназвать тест
+	BOOST_AUTO_TEST_CASE(must_insert_into_dictionary_new_pair_of_words)
 	{
 		Dictionary expectedDictionary = { {"moose", "лось"} };
 		VerifyInsertNewWordIntoDictionary("moose", "лось", expectedDictionary);
