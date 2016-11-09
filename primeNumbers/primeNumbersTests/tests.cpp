@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_SUITE(GeneratePrimeNumbersSet_function)
 	BOOST_AUTO_TEST_CASE(must_make_empty_set_when_upperBound_more_than_max_value)
 	{
 		std::set<int> expectedResult{};
-		std::set<int> result = GeneratePrimeNumbersSet(110000001);
+		std::set<int> result = GeneratePrimeNumbersSet(100000001);
 
 		BOOST_CHECK(result == expectedResult);
 	}
