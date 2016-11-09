@@ -46,6 +46,16 @@ BOOST_FIXTURE_TEST_SUITE(Car, CarFixture)
 		BOOST_CHECK(car.GetGear() == Gear::NEUTRAL);
 	}
 
+	BOOST_AUTO_TEST_CASE(impossible_to_change_speed_when_engine_off)
+	{
+		car.TurnOnEngine();
+		BOOST_CHECK(!car.SetSpeed(20));
+	}
 
+	BOOST_AUTO_TEST_CASE(impossible_to_change_speed_to_negative_value)
+	{
+		car.TurnOnEngine();
+		BOOST_CHECK(!car.SetSpeed(-2));
+	}
 
 BOOST_AUTO_TEST_SUITE_END()
