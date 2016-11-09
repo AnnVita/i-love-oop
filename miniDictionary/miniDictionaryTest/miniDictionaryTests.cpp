@@ -70,9 +70,19 @@ BOOST_AUTO_TEST_SUITE(InsertNewWordIntoDictionary_function)
 		Dictionary expectedDictionary = { {"moose", "лось"} };
 		VerifyInsertNewWordIntoDictionary("moose", "лось", expectedDictionary);
 	}
+	BOOST_AUTO_TEST_CASE(must_ignore_empty_value_in_word)
+	{
+		Dictionary expectedDictionary = {};
+		VerifyInsertNewWordIntoDictionary("", "value", expectedDictionary);
+	}
+	BOOST_AUTO_TEST_CASE(must_ignore_empty_value_in_translation)
+	{
+		Dictionary expectedDictionary = {};
+		VerifyInsertNewWordIntoDictionary("value", "", expectedDictionary);
+	}
 	BOOST_AUTO_TEST_CASE(must_ignore_empty_values)
 	{
 		Dictionary expectedDictionary = {};
 		VerifyInsertNewWordIntoDictionary("", "", expectedDictionary);
-	}//добавить тесты с тремя ситуациями
+	}
 BOOST_AUTO_TEST_SUITE_END();
