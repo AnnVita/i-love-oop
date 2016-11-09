@@ -1,0 +1,10 @@
+cat
+кошка
+circle
+круг
+database
+база данных
+dog
+собака
+moose
+лось 
