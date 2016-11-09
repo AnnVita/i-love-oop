@@ -6,12 +6,12 @@ BOOST_AUTO_TEST_SUITE(FillSieveVector_function)
 	BOOST_AUTO_TEST_CASE(must_make_empty_vector_if_upperBound_is_unavalid)
 	{
 		std::vector<bool> expectedResult{};
-		std::vector<bool> result = FillSieveVector(0);
+		std::vector<bool> result = FillSieveVector(-2);
 
 		BOOST_CHECK(result == expectedResult);
 	}
 
-	BOOST_AUTO_TEST_CASE(must_make_vector_of_primes_in_first_seven_numbers)
+	BOOST_AUTO_TEST_CASE(must_make_vector_of_primes_of_first_seven_numbers)
 	{
 		std::vector<bool> expectedResult{ 0, 0, 1, 1, 0, 1, 0, 1};
 		std::vector<bool> result = FillSieveVector(7);
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_SUITE(GeneratePrimeNumbersSet_function)
 	BOOST_AUTO_TEST_CASE(must_make_empty_set_when_upperBound_more_than_max_value)
 	{
 		std::set<int> expectedResult{};
-		std::set<int> result = GeneratePrimeNumbersSet(100000001);
+		std::set<int> result = GeneratePrimeNumbersSet(110000001);
 
 		BOOST_CHECK(result == expectedResult);
 	}
