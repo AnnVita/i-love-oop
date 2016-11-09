@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "sieveFunctions.h"
 
-bool InsideValidRange(int upperBound)
+bool IsUpperBoundValid(int upperBound)
 {
 	return ((upperBound >= MIN_PRIME) && (upperBound <= MAX_BOUND_VALUE));
 }
 
 std::vector<bool> FillSieveVector(unsigned int upperBound)
 {
-	if (!InsideValidRange(upperBound))
+	if (!IsUpperBoundValid(upperBound))
 		return {};
 
 	std::vector<bool> sieve(upperBound + 1, true);
@@ -29,7 +29,7 @@ std::vector<bool> FillSieveVector(unsigned int upperBound)
 
 std::set<int> GeneratePrimeNumbersSet(unsigned int upperBound)
 {
-	if (!InsideValidRange(upperBound))
+	if (!IsUpperBoundValid(upperBound))
 		return {};
 
 	std::vector<bool> sieve = FillSieveVector(upperBound);

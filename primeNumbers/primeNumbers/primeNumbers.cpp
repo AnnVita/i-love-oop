@@ -15,7 +15,7 @@ int main(int argc, char * argv[])
 
 	int upperBound = atoi(argv[1]);
 
-	if (!InsideValidRange(upperBound))
+	if (!IsUpperBoundValid(upperBound))
 	{
 		std::cout << "Invalid argument" << std::endl
 			<< "Upper bound in [" << MIN_PRIME << ", " << MAX_BOUND_VALUE << "]" << std::endl;
