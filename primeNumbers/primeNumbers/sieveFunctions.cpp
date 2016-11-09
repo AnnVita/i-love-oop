@@ -13,7 +13,8 @@ std::vector<bool> FillSieveVector(unsigned int upperBound)
 
 	std::vector<bool> sieve(upperBound + 1, true);
 	sieve[0] = sieve[1] = false;
-	for (unsigned int i = MIN_PRIME; i * i <= upperBound; ++i)
+	unsigned int upperBoundSqrt = static_cast<unsigned int>(round(sqrt(upperBound)));
+	for (unsigned int i = MIN_PRIME; i <= upperBoundSqrt; ++i)
 	{
 		if (sieve[i])
 		{
