@@ -26,7 +26,7 @@ public:
 
 	bool TurnOnEngine();
 	bool TurnOffEngine();
-	bool SetGear(int gear);
+	bool SetGear(Gear gear);
 	bool SetSpeed(int speed);
 
 	bool IsTurnedOn() const;
@@ -35,7 +35,8 @@ public:
 	Gear GetGear() const;
 
 private:
-	bool IsSpeedInRange(int speed, Gear gear) const;
+	bool IsDirectionCorrect(Direction direction, Gear gear) const;
+	bool CCar::IsSpeedInRange(int speed, Gear gear) const;
 
 	bool m_engineOn = false;
 	Direction m_direction;
