@@ -13,7 +13,7 @@ int main()
 		std::cout << "> ";
 		if (!carController.HandleCommand())
 		{
-			std::cout << "Unknown command!" << std::endl;
+			std::cout << std::endl;
 		}
 	}
 

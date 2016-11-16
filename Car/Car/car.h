@@ -22,7 +22,7 @@ class CCar
 {
 public:
 	CCar();
-	~CCar() {};
+	~CCar() = default;
 
 	bool TurnOnEngine();
 	bool TurnOffEngine();
@@ -36,10 +36,10 @@ public:
 
 private:
 	bool IsDirectionCorrect(Direction direction, Gear gear) const;
-	bool CCar::IsSpeedInRange(int speed, Gear gear) const;
+	bool IsSpeedInRange(int speed, Gear gear) const;
 
-	bool m_engineOn = false;
+	bool m_engineOn;
 	Direction m_direction;
 	Gear m_gear;
-	int m_speed = 0;
+	int m_speed;
 };

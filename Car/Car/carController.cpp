@@ -31,7 +31,11 @@ bool CCarControl::HandleCommand()
 	strm >> action;
 
 	auto it = m_actionMap.find(action);
-	if (it != m_actionMap.end())
+	if (it == m_actionMap.end())
+	{
+		m_output << "Usage:\nEngineOn - turn engine on\nEngineOff - turn engine off\nSetGear <gear value> - set gear\nSetSpeed <speed value> - set speed\nInfo - get info about current car sustain\n";
+	}
+	else
 	{
 		return it->second(strm);
 	}
@@ -67,9 +71,8 @@ bool CCarControl::Info(std::istream & /*args*/)
 
 	if (m_car.IsTurnedOn())
 	{
-		info = "Car engine is on\nGear: " + std::to_string(m_car.GetGear()) +
-			"\nSpeed: " + std::to_string(m_car.GetSpeed()) +
-			"\nDirection: " + std::to_string(static_cast<int>(m_car.GetDirection())) + '\n';
+		info = "Car engine is on\nGear: " + std::to_string(static_cast<int>(m_car.GetGear())) +
+			"\nSpeed: " + std::to_string(m_car.GetSpeed()) + '\n';
 	}
 	else
 	{
@@ -86,17 +89,18 @@ bool CCarControl::SetGear(std::istream &args)
 	int gear;
 	args >> gear;
 
-	if (m_car.SetGear(static_cast<Gear>(gear)))
+	bool isSuccessfull = m_car.SetGear(static_cast<Gear>(gear));
+
+	if (isSuccessfull)
 	{
-		std::string msg = "Gear was switched on " + std::to_string(gear) + '\n';
-		m_output << msg;
+		m_output << "Gear was successfully changed on " << static_cast<int>(m_car.GetGear()) << '\n';
 	}
 	else
 	{
-		std::string alert = "Gear doesn't match current car speed or car engine is turned off\n";
-		m_output << alert;
+		m_output << "Gear is out of range for current gear or car engine is turned off\n";
 	}
 
+	return isSuccessfull;
 	return true;
 }
 
@@ -105,16 +109,15 @@ bool CCarControl::SetSpeed(std::istream &args)
 	int speed;
 	args >> speed;
 
-	if (m_car.SetSpeed(speed))
+	bool IsSuccessfull = m_car.SetSpeed(speed);
+
+	if (IsSuccessfull)
 	{
-		std::string alert = "Speed was successfully changed on " + std::to_string(speed) + "\n";
-		m_output << alert;
+		m_output << "Speed was successfully changed on " << m_car.GetSpeed() << '\n';
 	}
 	else
 	{
-		std::string alert = "Speed is out of range for current gear or car engine is turned off\n";
-		m_output << alert;
+		m_output << "Speed is out of range for current gear or car engine is turned off\n";
 	}
-
 	return true;
 }

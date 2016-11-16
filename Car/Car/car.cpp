@@ -55,6 +55,9 @@ bool CCar::SetSpeed(int speed)
 {
 	if (m_engineOn && IsSpeedInRange(speed, m_gear) && !((m_gear == Gear::NEUTRAL) && (speed >= m_speed)))
 	{
+		m_speed = speed;
+
+		// implements UpdateDirection
 		if (speed == 0)
 		{
 			m_direction = Direction::NONE;
@@ -67,7 +70,7 @@ bool CCar::SetSpeed(int speed)
 		{
 			m_direction = Direction::FORWARD;
 		}
-		m_speed = speed;
+
 		return true;
 	}
 	return false;
@@ -97,9 +100,11 @@ bool CCar::SetGear(Gear newGear)
 
 bool CCar::IsSpeedInRange(int speed, Gear gear) const
 {
-	bool isInRange;
+	bool isInRange = false;
 	switch (gear)
 	{
+		// using Range = std::pair<int, int>
+		// use std::map<Gear, Range>
 	case Gear::REVERSE:
 		isInRange = ((speed >= 0) && (speed <= 20));
 		break;
@@ -121,6 +126,8 @@ bool CCar::IsSpeedInRange(int speed, Gear gear) const
 	case Gear::FIFTH:
 		isInRange = ((speed >= 50) && (speed <= 150));
 		break;
+	default:
+		false;
 	}
 	return isInRange;
 }
