@@ -341,7 +341,22 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	(1/2) != 7     → true
 //	3 != (2/3)     → true
 //////////////////////////////////////////////////////////////////////////
-
+	BOOST_AUTO_TEST_SUITE(can_be_checked_for_equality)
+		BOOST_AUTO_TEST_CASE(with_rational)
+		{
+			BOOST_CHECK(CRational(1, 2) == CRational(1, 2));
+			BOOST_CHECK(!(CRational(1, 2) == CRational(3, 2)));
+			BOOST_CHECK(CRational(-3, 2) != CRational(3, 2));
+			BOOST_CHECK(!(CRational(1, 2) != CRational(2, 4)));
+		}
+		BOOST_AUTO_TEST_CASE(with_integer)
+		{
+			BOOST_CHECK(CRational(2, 1) == 2);
+			BOOST_CHECK(!(CRational(1, 2) == 1));
+			BOOST_CHECK(CRational(-3, 1) != 3);
+			BOOST_CHECK(!(CRational(-4, 1) != -4));
+		}
+	BOOST_AUTO_TEST_SUITE_END()
 
 
 
