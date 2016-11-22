@@ -281,11 +281,6 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 		VerifyRational(CRational(3, 5) / CRational(3, 6), 6, 5);
 	}
 
-	BOOST_AUTO_TEST_CASE(cant_be_divided_on_0)
-	{
-		BOOST_REQUIRE_THROW(CRational(1, 1) / 0, std::invalid_argument);
-	}
-
 
 
 
@@ -320,8 +315,19 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	(3/4) /= (3/8) → (2/1)
 //	(1/2) /= 3     → (1/6)
 //////////////////////////////////////////////////////////////////////////
+	BOOST_AUTO_TEST_CASE(has_operation_of_division_combined_with_assignment)
+	{
+		VerifyRational(CRational(1, 2) /= CRational(2, 3), 3, 4);
+		VerifyRational(CRational(1, 2) /= 1, 1, 2);
 
+		VerifyRational(CRational(1, 2) /= CRational(1, 2), 1, 1);
+	}
 
+	BOOST_AUTO_TEST_CASE(cant_be_divided_on_0)
+	{
+		BOOST_REQUIRE_THROW(CRational(1, 1) / 0, std::invalid_argument);
+		BOOST_REQUIRE_THROW(CRational(1, 1) /= CRational(1, 0), std::invalid_argument);
+	}
 
 
 //////////////////////////////////////////////////////////////////////////

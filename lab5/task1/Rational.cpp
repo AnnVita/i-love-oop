@@ -159,8 +159,8 @@ const CRational operator/(const CRational & lRational, const CRational & rRation
 //////////////////////////////////////////////////////////////////////////
 const CRational & CRational::operator*=(const CRational & multiplier)
 {
-	m_numerator = m_numerator * multiplier.GetNumerator();
-	m_denominator = m_denominator * multiplier.GetDenominator();
+	m_numerator *= multiplier.GetNumerator();
+	m_denominator *= multiplier.GetDenominator();
 	Normalize();
 	return *this;
 }
@@ -170,7 +170,16 @@ const CRational & CRational::operator*=(const CRational & multiplier)
 //////////////////////////////////////////////////////////////////////////
 // TODO: 10. Реализовать оператор /=
 //////////////////////////////////////////////////////////////////////////
-
+const CRational & CRational::operator/=(const CRational & divider)
+{
+	if (divider.GetNumerator() != 0)
+	{
+		m_numerator *= divider.GetDenominator();
+		m_denominator *= divider.GetNumerator();
+		Normalize();
+	}
+	return *this;
+}
 
 
 
