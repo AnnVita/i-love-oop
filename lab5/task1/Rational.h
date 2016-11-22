@@ -199,3 +199,4 @@ unsigned GCD(unsigned a, unsigned b);
 const CRational operator+(const CRational & lRational, const CRational & rRational);
 const CRational operator-(const CRational & lRational, const CRational & rRational);
 const CRational operator*(const CRational & lRational, const CRational & rRational);
+const CRational operator/(const CRational & lRational, const CRational & rRational);
