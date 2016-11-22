@@ -200,9 +200,25 @@ const bool operator !=(CRational const & lRational, CRational const & rRational)
 //////////////////////////////////////////////////////////////////////////
 // TODO: 12. Реализовать операторы <, >, <=, >=
 //////////////////////////////////////////////////////////////////////////
+const bool operator <(CRational const & lRational, CRational const & rRational)
+{
+	return (lRational.GetNumerator() * rRational.GetDenominator() < rRational.GetNumerator() * lRational.GetDenominator());
+}
 
+const bool operator >(CRational const & lRational, CRational const & rRational)
+{
+	return (lRational.GetNumerator() * rRational.GetDenominator() > rRational.GetNumerator() * lRational.GetDenominator());
+}
 
+const bool operator <=(CRational const & lRational, CRational const & rRational)
+{
+	return !(lRational > rRational);
+}
 
+const bool operator >=(CRational const & lRational, CRational const & rRational)
+{
+	return !(lRational < rRational);
+}
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 13. Реализовать оператор вывода рационального числа в выходной поток 

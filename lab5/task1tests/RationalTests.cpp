@@ -371,9 +371,70 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	3 <= (7/2)     → true
 //	3 >= (8/2)     → false
 //////////////////////////////////////////////////////////////////////////
+	BOOST_AUTO_TEST_SUITE(can_be_compared_with_operator_smaller)
+		BOOST_AUTO_TEST_CASE(with_rational)
+		{
+			BOOST_CHECK(CRational(1, 3) < CRational(1, 2));
+			BOOST_CHECK(!(CRational(1, 3) < CRational(1, 3)));
+			BOOST_CHECK(!(CRational(1, 3) < CRational(1, 4)));
 
+		}
+		
+		BOOST_AUTO_TEST_CASE(with_integer)
+		{
+			BOOST_CHECK(CRational(1, 3) < 1);
+			BOOST_CHECK(!(CRational(1, 1) < 1));
+			BOOST_CHECK(!(CRational(3, 2) < 1));
+		}
+	BOOST_AUTO_TEST_SUITE_END()
 
+	BOOST_AUTO_TEST_SUITE(can_be_compared_with_operator_bigger)
+		BOOST_AUTO_TEST_CASE(with_rational)
+		{
+			BOOST_CHECK(CRational(1, 2) > CRational(1, 3));
+			BOOST_CHECK(!(CRational(1, 2) > CRational(1, 2)));
+			BOOST_CHECK(!(CRational(1, 3) > CRational(1, 2)));
+		}
 
+		BOOST_AUTO_TEST_CASE(with_integer)
+		{
+			BOOST_CHECK(1 > CRational(1, 2));
+			BOOST_CHECK(!(CRational(1, 1) > 1));
+			BOOST_CHECK(!(CRational(3, 2) > 3));
+		}
+	BOOST_AUTO_TEST_SUITE_END()
+
+	BOOST_AUTO_TEST_SUITE(can_be_compared_with_operator_less_or_equal)
+		BOOST_AUTO_TEST_CASE(with_rational)
+		{
+			BOOST_CHECK(CRational(1, 3) <= CRational(1, 2));
+			BOOST_CHECK(CRational(1, 3) <= CRational(1, 3));
+			BOOST_CHECK(!(CRational(1, 3) <= CRational(1, 4)));
+		}
+
+		BOOST_AUTO_TEST_CASE(with_integer)
+		{
+			BOOST_CHECK(CRational(1, 3) <= 1);
+			BOOST_CHECK(CRational(1, 1) <= 1);
+			BOOST_CHECK(!(CRational(3, 2) <= 1));
+		}
+	BOOST_AUTO_TEST_SUITE_END()
+
+	BOOST_AUTO_TEST_SUITE(can_be_compared_with_operator_greater_or_equal)
+		BOOST_AUTO_TEST_CASE(with_rational)
+		{
+			BOOST_CHECK(CRational(1, 2) > CRational(1, 3));
+			BOOST_CHECK(!(CRational(1, 2) > CRational(1, 2)));
+			BOOST_CHECK(!(CRational(1, 3) > CRational(1, 2)));
+		}
+
+		BOOST_AUTO_TEST_CASE(with_integer)
+		{
+			BOOST_CHECK(1 >= CRational(1, 2));
+			BOOST_CHECK(CRational(1, 1) >= 1);
+			BOOST_CHECK(!(CRational(3, 2) >= 3));
+		}
+	BOOST_AUTO_TEST_SUITE_END()
 
 //////////////////////////////////////////////////////////////////////////
 // TODO: 13. Реализовать оператор вывода рационального числа в выходной поток 

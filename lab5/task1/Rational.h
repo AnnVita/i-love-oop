@@ -203,3 +203,7 @@ const CRational operator*(const CRational & lRational, const CRational & rRation
 const CRational operator/(const CRational & lRational, const CRational & rRational);
 const bool operator ==(CRational const & lRational, CRational const & rRational);
 const bool operator !=(CRational const & lRational, CRational const & rRational);
+const bool operator <(CRational const & lRational, CRational const & rRational);
+const bool operator >(CRational const & lRational, CRational const & rRational);
+const bool operator <=(CRational const & lRational, CRational const & rRational);
+const bool operator >=(CRational const & lRational, CRational const & rRational);
