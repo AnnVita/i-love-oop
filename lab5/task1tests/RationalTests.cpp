@@ -243,7 +243,20 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	(1/2) * (-3)  = (-3/2)
 //	7 * (2/3)     = (14/3)
 //////////////////////////////////////////////////////////////////////////
+	BOOST_AUTO_TEST_CASE(has_operation_of_multiplication)
+	{
+		VerifyRational(CRational(1, 3) * 0, 0, 1);
+		VerifyRational(0 * CRational(1, 3), 0, 1);
 
+		VerifyRational(CRational(1, 6) * 2, 1, 3);
+		VerifyRational(2 * CRational(1, 6), 1, 3);
+
+		VerifyRational(CRational(1, 6) * -2, -1, 3);
+		VerifyRational(-2 * CRational(1, 6), -1, 3);
+
+		VerifyRational(CRational(3, 6) * CRational(3, 5), 3, 10);
+		VerifyRational(CRational(3, 5) * CRational(3, 6), 3, 10);
+	}
 
 
 

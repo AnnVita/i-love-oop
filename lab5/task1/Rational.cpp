@@ -133,7 +133,12 @@ const CRational & CRational::operator-=(const CRational & sub)
 //////////////////////////////////////////////////////////////////////////
 // TODO: 7. Реализовать оператор *
 //////////////////////////////////////////////////////////////////////////
-
+const CRational operator*(const CRational & lRational, const CRational & rRational)
+{
+	int resultNumerator = lRational.GetNumerator() * rRational.GetNumerator();
+	int resultDenominator = lRational.GetDenominator() * rRational.GetDenominator();
+	return CRational(resultNumerator, resultDenominator);
+}
 
 
 
