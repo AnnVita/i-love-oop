@@ -231,5 +231,18 @@ const bool operator >=(CRational const & lRational, CRational const & rRational)
 //////////////////////////////////////////////////////////////////////////
 // TODO: 14. Реализовать оператор ввода рационального числа из входного потока 
 //////////////////////////////////////////////////////////////////////////
-
+std::istream & operator >> (std::istream & input, CRational & rational)
+{
+	int numerator = 0;
+	int denominator = 1;
+	if ((input >> numerator) && (input.get() == '/') && (input >> denominator))
+	{
+		rational = CRational(numerator, denominator);
+	}
+	else
+	{
+		input.setstate(std::ios_base::failbit);
+	}
+	return input;
+}
 

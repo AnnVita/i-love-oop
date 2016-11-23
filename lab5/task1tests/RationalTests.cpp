@@ -450,7 +450,37 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	std::istream в формате <числитель>/<знаменатель>, 
 //	например: 7/15
 //////////////////////////////////////////////////////////////////////////
+BOOST_AUTO_TEST_CASE(can_be_readed_from_istream)
+	{
+		{
+			CRational rational;
 
+			std::istringstream input("0");
+			input >> rational;
+			VerifyRational(rational, 0, 1);
+		}
+		{
+			CRational rational;
+
+			std::istringstream input("7/15");
+			input >> rational;
+			VerifyRational(rational, 7, 15);
+		}
+		{
+			CRational rational;
+
+			std::istringstream input("-1/1");
+			input >> rational;
+			VerifyRational(rational, -1, 1);
+		}
+		{
+			CRational rational;
+
+			std::istringstream input("not numeric string");
+			input >> rational;
+			BOOST_CHECK(input.fail());
+		}
+	}
 
 
 BOOST_AUTO_TEST_SUITE_END()
