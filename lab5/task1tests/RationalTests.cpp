@@ -441,7 +441,24 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	std::ostream в формате <числитель>/<знаменатель>, 
 //	например: 7/15
 //////////////////////////////////////////////////////////////////////////
-
+	BOOST_AUTO_TEST_CASE(can_be_writed_to_ostream)
+	{
+		{
+			std::ostringstream output;
+			output << CRational(-3, 14);
+			BOOST_CHECK_EQUAL(output.str(), "-3/14");
+		}
+		{
+			std::ostringstream output;
+			output << "Rational = " << CRational(1, 14) << ".";
+			BOOST_CHECK_EQUAL(output.str(), "Rational = 1/14.");
+		}
+		{
+			std::ostringstream output;
+			output << CRational(4);
+			BOOST_CHECK_EQUAL(output.str(), "4/1");
+		}
+	}
 
 
 
@@ -450,7 +467,7 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	std::istream в формате <числитель>/<знаменатель>, 
 //	например: 7/15
 //////////////////////////////////////////////////////////////////////////
-BOOST_AUTO_TEST_CASE(can_be_readed_from_istream)
+	BOOST_AUTO_TEST_CASE(can_be_readed_from_istream)
 	{
 		{
 			CRational rational;

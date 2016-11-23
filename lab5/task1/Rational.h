@@ -209,3 +209,4 @@ const bool operator >(CRational const & lRational, CRational const & rRational);
 const bool operator <=(CRational const & lRational, CRational const & rRational);
 const bool operator >=(CRational const & lRational, CRational const & rRational);
 std::istream & operator >> (std::istream & input, CRational & rational);
+std::ostream & operator << (std::ostream & output, const CRational & rational);

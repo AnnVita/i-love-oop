@@ -223,7 +223,11 @@ const bool operator >=(CRational const & lRational, CRational const & rRational)
 //////////////////////////////////////////////////////////////////////////
 // TODO: 13. Реализовать оператор вывода рационального числа в выходной поток 
 //////////////////////////////////////////////////////////////////////////
-
+std::ostream & operator << (std::ostream & output, const CRational & rational)
+{
+	output << rational.GetNumerator() << "/" << rational.GetDenominator();
+	return output;
+}
 
 
 
