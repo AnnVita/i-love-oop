@@ -7,6 +7,8 @@ CBody::CBody(const std::string & type, double density)
 {
 }
 
+CBody::~CBody() = default;
+
 double CBody::GetDensity()const
 {
 	return m_density;

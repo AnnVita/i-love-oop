@@ -24,13 +24,13 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="body.h">
+    <ClInclude Include="..\bodies\body.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sphere.h">
+    <ClInclude Include="..\bodies\sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cone.h">
+    <ClInclude Include="..\bodies\cone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,13 +41,19 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="body.cpp">
+    <ClCompile Include="SphereTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sphere.cpp">
+    <ClCompile Include="..\bodies\sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cone.cpp">
+    <ClCompile Include="..\bodies\body.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConeTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bodies\cone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
