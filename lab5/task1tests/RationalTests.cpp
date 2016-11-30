@@ -380,8 +380,10 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 		BOOST_AUTO_TEST_CASE(with_integer)
 		{
 			BOOST_CHECK(CRational(1, 3) < 1);
+			BOOST_CHECK(!(1 < CRational(1, 3)));
 			BOOST_CHECK(!(CRational(1, 1) < 1));
 			BOOST_CHECK(!(CRational(3, 2) < 1));
+			BOOST_CHECK((1 < CRational(3, 2)));
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 
@@ -398,6 +400,7 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 			BOOST_CHECK(1 > CRational(1, 2));
 			BOOST_CHECK(!(CRational(1, 1) > 1));
 			BOOST_CHECK(!(CRational(3, 2) > 3));
+			BOOST_CHECK(3 > CRational(3, 2));
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 
@@ -412,7 +415,8 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 		BOOST_AUTO_TEST_CASE(with_integer)
 		{
 			BOOST_CHECK(CRational(1, 3) <= 1);
-			BOOST_CHECK(CRational(1, 1) <= 1);
+			BOOST_CHECK(!(1 <= CRational(1, 3)));
+			BOOST_CHECK(1 <= CRational(1, 1));
 			BOOST_CHECK(!(CRational(3, 2) <= 1));
 		}
 	BOOST_AUTO_TEST_SUITE_END()
