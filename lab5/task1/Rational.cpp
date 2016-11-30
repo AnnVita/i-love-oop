@@ -253,5 +253,4 @@ std::istream & operator >> (std::istream & input, CRational & rational)
 std::pair<int, CRational> CRational::ToCompoundFraction() const
 {
 	return std::make_pair(m_numerator / m_denominator,
-		+CRational(m_numerator % m_denominator, +m_denominator));
 }
