@@ -117,8 +117,7 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 
 		BOOST_AUTO_TEST_CASE(that_correctly_handles_0)
 		{
-			VerifyRational(-CRational(0), +0, 1);
-			//VerifyRational(-CRational(0), -0, 1);
+			VerifyRational(-CRational(0), 0, 1);
 		}
 
 	BOOST_AUTO_TEST_SUITE_END()
@@ -442,7 +441,7 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 //	std::ostream в формате <числитель>/<знаменатель>, 
 //	например: 7/15
 //////////////////////////////////////////////////////////////////////////
-	BOOST_AUTO_TEST_CASE(can_be_wrote_to_ostream)
+	BOOST_AUTO_TEST_CASE(can_be_written_to_ostream)
 	{
 		{
 			std::ostringstream output;
