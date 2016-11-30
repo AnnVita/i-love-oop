@@ -499,9 +499,10 @@ BOOST_AUTO_TEST_SUITE(Rational_number)
 
 	BOOST_AUTO_TEST_CASE(can_be_converted_to_mixed_fraction)
 	{
-		CRational rational(2, 1);
-		std::pair<int, CRational> expectedMixedFraction = std::make_pair(2, CRational(0));
-		BOOST_CHECK_EQUAL(rational.ToCompoundFraction(), expectedMixedFraction);
+		CRational rational(16, 15);
+		std::pair<int, CRational> expectedMixedFraction = std::make_pair(1, CRational(1, 15));
+		BOOST_CHECK_EQUAL(rational.ToCompoundFraction().first, expectedMixedFraction.first);
+		BOOST_CHECK_EQUAL(rational.ToCompoundFraction().second, expectedMixedFraction.second);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()

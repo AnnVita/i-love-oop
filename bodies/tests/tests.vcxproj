@@ -152,7 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\bodies\body.h" />
+    <ClInclude Include="..\bodies\compound.h" />
     <ClInclude Include="..\bodies\cone.h" />
+    <ClInclude Include="..\bodies\controller.h" />
     <ClInclude Include="..\bodies\cylinder.h" />
     <ClInclude Include="..\bodies\parallelepiped.h" />
     <ClInclude Include="..\bodies\sphere.h" />
@@ -161,11 +163,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\bodies\body.cpp" />
+    <ClCompile Include="..\bodies\compound.cpp" />
     <ClCompile Include="..\bodies\cone.cpp" />
+    <ClCompile Include="..\bodies\controller.cpp" />
     <ClCompile Include="..\bodies\cylinder.cpp" />
     <ClCompile Include="..\bodies\parallelepiped.cpp" />
     <ClCompile Include="..\bodies\sphere.cpp" />
+    <ClCompile Include="CompoundTests.cpp" />
     <ClCompile Include="ConeTests.cpp" />
+    <ClCompile Include="ControllerTests.cpp" />
     <ClCompile Include="CylinderTests.cpp" />
     <ClCompile Include="ParallelepipedTests.cpp" />
     <ClCompile Include="SphereTests.cpp" />

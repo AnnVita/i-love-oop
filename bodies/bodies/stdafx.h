@@ -17,7 +17,9 @@
 #include <iomanip>
 #include <vector>
 #include <memory>
-
+#include <map>
+#include <functional>
+#include <algorithm>
 
 
 // TODO: reference additional headers your program requires here
