@@ -89,9 +89,7 @@ const CRational operator+(const CRational & lRational, const CRational & rRation
 //////////////////////////////////////////////////////////////////////////
 const CRational operator-(const CRational & lRational, const CRational & rRational)
 {
-	int resultNumerator = lRational.GetNumerator() * rRational.GetDenominator() - rRational.GetNumerator() * lRational.GetDenominator();
-	int resultDenominator = lRational.GetDenominator() * rRational.GetDenominator();
-	return CRational(resultNumerator, resultDenominator);
+	return lRational + CRational(-rRational.GetNumerator(), rRational.GetDenominator());
 }
 
 
@@ -122,9 +120,7 @@ const CRational & CRational::operator-=(const CRational & sub)
 	{
 		return *this;
 	}
-	m_numerator = m_numerator * sub.GetDenominator() - sub.GetNumerator() * m_denominator;
-	m_denominator = m_denominator * sub.GetDenominator();
-	Normalize();
+	*this += CRational(-sub.GetNumerator(), sub.GetDenominator());
 	return *this;
 }
 
@@ -147,9 +143,7 @@ const CRational operator*(const CRational & lRational, const CRational & rRation
 //////////////////////////////////////////////////////////////////////////
 const CRational operator/(const CRational & lRational, const CRational & rRational)
 {
-	int resultNumerator = lRational.GetNumerator() * rRational.GetDenominator();
-	int resultDenominator = lRational.GetDenominator() * rRational.GetNumerator();
-	return CRational(resultNumerator, resultDenominator);
+	return lRational * CRational(rRational.GetDenominator(), rRational.GetNumerator());
 }
 
 
@@ -174,9 +168,7 @@ const CRational & CRational::operator/=(const CRational & divider)
 {
 	if (divider.GetNumerator() != 0)
 	{
-		m_numerator *= divider.GetDenominator();
-		m_denominator *= divider.GetNumerator();
-		Normalize();
+		*this *= CRational(divider.GetDenominator(), divider.GetNumerator());
 	}
 	return *this;
 }
@@ -253,5 +245,5 @@ std::istream & operator >> (std::istream & input, CRational & rational)
 std::pair<int, CRational> CRational::ToCompoundFraction() const
 {
 	return std::make_pair(m_numerator / m_denominator,
-		CRational(m_numerator % m_denominator, m_denominator));
+		CRational(abs(m_numerator % m_denominator), m_denominator));
 }
