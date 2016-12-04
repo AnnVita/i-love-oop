@@ -1,11 +1,6 @@
 #include "stdafx.h"
+#include "TestFunctions.h"
 #include "..\shapes\CPoint.h"
-
-void VerifyPoint(CPoint const & point, float expectedX, float expectedY)
-{
-	BOOST_CHECK_CLOSE_FRACTION(point.x, expectedX, 0.0001);
-	BOOST_CHECK_CLOSE_FRACTION(point.y, expectedY, 0.0001);
-}
 
 BOOST_AUTO_TEST_SUITE(Point_class)
 
@@ -34,7 +29,7 @@ BOOST_AUTO_TEST_SUITE(Point_class)
     }
 	BOOST_AUTO_TEST_CASE(can_return_info_about_itself)
 	{
-		CPoint point(11.5f, 12.3);
+		CPoint point(11.5f, 12.3f);
 		BOOST_CHECK_EQUAL(point.ToString(), "(11.500000, 12.300000)");
 	}
 

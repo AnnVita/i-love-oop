@@ -8,8 +8,8 @@ public:
 	IShape(std::string const & type);
 	virtual ~IShape() = default;
 
-	virtual double GetArea() const = 0;
-	virtual double GetPerimeter() const = 0;
+	virtual float GetArea() const = 0;
+	virtual float GetPerimeter() const = 0;
 	virtual std::string GetOutlineColor() const = 0;
 	std::string ToString() const;
 
