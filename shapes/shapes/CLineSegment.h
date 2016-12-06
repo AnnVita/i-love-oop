@@ -10,7 +10,6 @@ public:
 
 	float GetArea() const;
 	float GetPerimeter() const override;
-	//std::string ToString() const;
 
 	CPoint GetStartPoint() const;
 	CPoint GetEndPoint() const;
