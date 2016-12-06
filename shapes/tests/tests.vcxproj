@@ -159,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="..\shapes\CLineSegment.h" />
     <ClInclude Include="..\shapes\CPoint.h" />
+    <ClInclude Include="..\shapes\CRectangle.h" />
     <ClInclude Include="..\shapes\CTriangle.h" />
     <ClInclude Include="..\shapes\IShape.h" />
     <ClInclude Include="..\shapes\ISolidShape.h" />
@@ -169,11 +170,13 @@
   <ItemGroup>
     <ClCompile Include="..\shapes\CLineSegment.cpp" />
     <ClCompile Include="..\shapes\CPoint.cpp" />
+    <ClCompile Include="..\shapes\CRectangle.cpp" />
     <ClCompile Include="..\shapes\CTriangle.cpp" />
     <ClCompile Include="..\shapes\IShape.cpp" />
     <ClCompile Include="..\shapes\ISolidShape.cpp" />
     <ClCompile Include="CLineSegmentTests.cpp" />
     <ClCompile Include="CPointTests.cpp" />
+    <ClCompile Include="CRectangleTests.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
