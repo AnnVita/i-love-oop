@@ -157,6 +157,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\shapes\CCircle.h" />
     <ClInclude Include="..\shapes\CLineSegment.h" />
     <ClInclude Include="..\shapes\CPoint.h" />
     <ClInclude Include="..\shapes\CRectangle.h" />
@@ -168,12 +169,14 @@
     <ClInclude Include="TestFunctions.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\shapes\CCircle.cpp" />
     <ClCompile Include="..\shapes\CLineSegment.cpp" />
     <ClCompile Include="..\shapes\CPoint.cpp" />
     <ClCompile Include="..\shapes\CRectangle.cpp" />
     <ClCompile Include="..\shapes\CTriangle.cpp" />
     <ClCompile Include="..\shapes\IShape.cpp" />
     <ClCompile Include="..\shapes\ISolidShape.cpp" />
+    <ClCompile Include="CCircleTests.cpp" />
     <ClCompile Include="CLineSegmentTests.cpp" />
     <ClCompile Include="CPointTests.cpp" />
     <ClCompile Include="CRectangleTests.cpp" />
