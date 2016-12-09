@@ -21,7 +21,14 @@
 #include <functional>
 #include <algorithm>
 
-
+#include <iostream>
+#include <boost/format.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/tokenizer.hpp>
+#include <boost/lexical_cast.hpp>
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include <fstream>
 
 
 // TODO: reference additional headers your program requires here

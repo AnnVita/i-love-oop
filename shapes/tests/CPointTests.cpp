@@ -32,5 +32,29 @@ BOOST_AUTO_TEST_SUITE(Point_class)
 		CPoint point(11.5f, 12.3f);
 		BOOST_CHECK_EQUAL(point.ToString(), "(11.500000, 12.300000)");
 	}
+	BOOST_AUTO_TEST_CASE(can_be_read_from_istream)
+	{
+		{
+			CPoint point;
+
+			std::istringstream input("12 11.1");
+			input >> point;
+			BOOST_CHECK(!input.fail());
+		}
+		{
+			CPoint point;
+
+			std::istringstream input("something wrong");
+			input >> point;
+			BOOST_CHECK(input.fail());
+		}
+		{
+			CPoint point;
+
+			std::istringstream input("42");
+			input >> point;
+			BOOST_CHECK(input.fail());
+		}
+	}
 
 BOOST_AUTO_TEST_SUITE_END()

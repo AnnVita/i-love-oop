@@ -23,3 +23,4 @@ private:
 	CPoint m_end;
 	std::string m_outlineColor;
 };
+
