@@ -36,5 +36,31 @@ BOOST_FIXTURE_TEST_SUITE(LineSegment, LineSegmentFixture)
 	{
 		BOOST_CHECK_EQUAL(line.ToString(), "Line: Area = 0 Perimeter = 17 OutlineColor = #000012 Start point = (0.000000, 15.000000) End point = (15.000000, 7.000000)");
 	}
+	BOOST_AUTO_TEST_CASE(can_be_read_from_istream_by_shared_ptr)
+	{
+		{
+			std::shared_ptr<CLineSegment> line;
+
+			std::istringstream input("12 11.1 20 12 #20fa11");
+			input >> line;
+			BOOST_CHECK(!input.fail());
+		}
+
+		{
+			std::shared_ptr<CLineSegment> line;
+
+			std::istringstream input("111 #20fa11");
+			input >> line;
+			BOOST_CHECK(input.fail());
+		}
+
+		{
+			std::shared_ptr<CLineSegment> line;
+
+			std::istringstream input("not a line");
+			input >> line;
+			BOOST_CHECK(input.fail());
+		}
+	}
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -5,6 +5,7 @@
 class CLineSegment : public IShape
 {
 public:
+	CLineSegment() = default;
 	CLineSegment(const CPoint & start, const CPoint & end, const std::string & outlineColor);
 	~CLineSegment() = default;
 
@@ -19,8 +20,9 @@ protected:
 	void AppendProperties(std::ostream & strm) const override;
 
 private:
-	CPoint m_begin;
-	CPoint m_end;
+	CPoint m_begin = { 0, 0 };
+	CPoint m_end = { 0, 0 };
 	std::string m_outlineColor;
 };
 
+bool operator >> (std::istream & input, std::shared_ptr<CLineSegment> & line);

@@ -39,3 +39,16 @@ void CLineSegment::AppendProperties(std::ostream & strm) const
 	strm << " Start point = " << GetStartPoint().ToString()
 		<< " End point = " << GetEndPoint().ToString();
 }
+
+bool operator >> (std::istream & input, std::shared_ptr<CLineSegment> & line)
+{
+	CPoint start;
+	CPoint end;
+	std::string outlineColor;
+	if (input >> start && input >> end && input >> outlineColor)
+	{
+		line = std::make_shared<CLineSegment>(start, end, outlineColor);
+		return true;
+	}
+	return false;
+}
