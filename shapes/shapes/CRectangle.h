@@ -25,3 +25,5 @@ private:
 	float m_width;
 	float m_height;
 };
+
+bool operator >> (std::istream & input, std::shared_ptr<CRectangle> & rectangle);

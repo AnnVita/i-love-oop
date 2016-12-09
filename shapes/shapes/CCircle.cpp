@@ -47,3 +47,18 @@ void CCircle::AppendProperties(std::ostream & strm) const
 	strm << " Radius = " << m_radius
 		<< " FillColor = " << GetFillColor();
 }
+
+bool operator >> (std::istream & input, std::shared_ptr<CCircle> & circle)
+{
+	CPoint center;
+	float radius;
+	std::string outlineColor;
+	std::string fillColor;
+
+	if (input >> center && input >> radius && input >> outlineColor && input >> fillColor)
+	{
+		circle = std::make_shared<CCircle>(center, radius, outlineColor, fillColor);
+		return true;
+	}
+	return false;
+}
