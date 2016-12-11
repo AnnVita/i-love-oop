@@ -1,0 +1,17 @@
+Rectangle: Area = 1400 Perimeter = 180 OutlineColor = #0f0f0f Width = 70 Height = 20 FillColor = #ff2aff
+Circle: Area = 8824.73 Perimeter = 333.009 OutlineColor = #ffc10a Radius = 53 FillColor = #ffffff
+Rectangle: Area = 500 Perimeter = 120 OutlineColor = #000000 Width = 50 Height = 10 FillColor = #f2ffff
+Circle: Area = 2827.43 Perimeter = 188.496 OutlineColor = #000000 Radius = 30 FillColor = #00b0f0
+Line: Area = 0 Perimeter = 110.68 OutlineColor = #000000 Start point = (215.000000, 195.000000) End point = (250.000000, 300.000000)
+Triangle: Area = 13000 Perimeter = 775.052 OutlineColor = #000000 FillColor = #00b0f0
+Rectangle: Area = 1050 Perimeter = 170 OutlineColor = #000000 Width = 15 Height = 70 FillColor = #ffffff
+Triangle: Area = 8250 Perimeter = 429.531 OutlineColor = #000000 FillColor = #00b0f0
+Circle: Area = 1520.53 Perimeter = 138.23 OutlineColor = #000000 Radius = 22 FillColor = #af20b2
+Rectangle: Area = 1050 Perimeter = 170 OutlineColor = #000000 Width = 15 Height = 70 FillColor = #ffffff
+Circle: Area = 12.5664 Perimeter = 12.5664 OutlineColor = #000000 Radius = 2 FillColor = #000000
+Line: Area = 0 Perimeter = 64.7765 OutlineColor = #b0a0f0 Start point = (170.000000, 320.000000) End point = (180.000000, 256.000000)
+
+Shape with max area: 
+Triangle: Area = 13000 Perimeter = 775.052 OutlineColor = #000000 FillColor = #00b0f0
+Shape with min perimeter: 
+Circle: Area = 12.5664 Perimeter = 12.5664 OutlineColor = #000000 Radius = 2 FillColor = #000000

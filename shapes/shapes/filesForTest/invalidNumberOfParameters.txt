@@ -1,0 +1,2 @@
+Invalid arguments count
+Usage: shape.exe <input file>
