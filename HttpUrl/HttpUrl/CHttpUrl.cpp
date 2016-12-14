@@ -38,7 +38,7 @@ const std::string CHttpUrl::ParseProtocol(const std::string & protocol)
 	return boost::algorithm::to_lower_copy(protocol);
 }
 
-const std::string CHttpUrl::to_string(const Protocol protocolValue)
+const std::string CHttpUrl::to_string(Protocol protocolValue)
 {
 	return (protocolValue == Protocol::HTTPS) ? "https" : "http";
 }
@@ -62,8 +62,40 @@ const std::pair<std::string, unsigned short> CHttpUrl::ParseDomain(const std::st
 	boost::regex domainRegEx("([^\\s/:]+\\.[^\\s/:]+)+:?(\\d+)?");
 	boost::smatch domainResults;
 	if (!boost::regex_match(domain, domainResults, domainRegEx))
-		;
-	std::cout << "Print entire match:\n " << domainResults[0] << std::endl;
-	std::cout << "Print the former string into another format:\n" << domainResults[1] << "+"
-		<< domainResults[2] << std::endl;
+		throw CUrlParsingError("invalid domain");
+	return std::pair<std::string, unsigned short>(domainResults[1], static_cast<unsigned short>(std::stoi(domainResults[2])));
+}
+
+const std::string CHttpUrl::ParseFile(const std::string & file)
+{
+	boost::regex fileRegEx("/?([^\\s]+)");
+	if(!boost::regex_match(file, fileRegEx))
+		throw CUrlParsingError("invalid file name");
+	return (file[0] == '/') ? file : "/" + file;
+}
+
+std::string CHttpUrl::GetURL() const
+{
+	std::string protocolString = (m_protocol == Protocol::HTTPS) ? "https" : "http";
+	return protocolString + "://" + m_domain + m_file;
+}
+
+std::string CHttpUrl::GetDomain() const
+{
+	return m_domain;
+}
+
+std::string CHttpUrl::GetFile() const
+{
+	return m_file;
+}
+
+Protocol CHttpUrl::GetProtocol() const
+{
+	return m_protocol;
+}
+
+unsigned short CHttpUrl::GetPort() const
+{
+	return m_port;
 }

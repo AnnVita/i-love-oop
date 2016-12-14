@@ -26,11 +26,11 @@ public:
 private:
 	const std::pair<std::string, std::string> ParseUrl(const std::string & url);
 	const std::string ParseProtocol(const std::string & protocol);
-	const std::string to_string(const Protocol protocolValue);
-	const Protocol from_string(const std::string & value);
 	const std::pair<std::string, std::string> ParseAddress(const std::string & address);
 	const std::pair<std::string, unsigned short> ParseDomain(const std::string & domain);
 	const std::string ParseFile(const std::string & file);
+	const std::string to_string(Protocol protocolValue);
+	const Protocol from_string(const std::string & value);
 
 	std::string m_domain, m_document, m_file;
 	Protocol m_protocol;
