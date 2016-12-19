@@ -7,19 +7,19 @@ CHttpUrl::CHttpUrl(std::string const & url)
 	std::pair<std::string, std::string> parsedUrl = ParseUrl(url);
 	m_protocol = StringToProtocol(ParseProtocol(parsedUrl.first));
 	std::pair<std::string, std::string> parsedAddress = ParseAddress(parsedUrl.second);
-	std::pair<std::string, unsigned short> parsedDomain = ParseDomain(parsedAddress.first);
+	std::pair<std::string, std::string> parsedDomain = ParseDomain(parsedAddress.first);
 	m_domain = parsedDomain.first;
-	m_port = parsedDomain.second;
+	m_port = (parsedDomain.second.empty()) ? static_cast<unsigned short>(m_protocol) : static_cast<unsigned short>(std::stoi(parsedDomain.second));
 	m_file = ParseFile(parsedAddress.second);
 };
 
-CHttpUrl::CHttpUrl(const std::string & domain, const std::string & file, Protocol protocol, unsigned short port)
+CHttpUrl::CHttpUrl(std::string const & domain, std::string const & file, Protocol protocol, unsigned short port)
+	: m_domain(domain)
+	, m_file(ParseFile(file))
+	, m_protocol(protocol)
+	, m_port(port)
 {
-	m_protocol = protocol;
-	std::pair<std::string, unsigned short> parsedDomain = ParseDomain(domain);
-	m_domain = parsedDomain.first;
-	m_port = parsedDomain.second;
-	m_file = ParseFile(file);
+	CheckDomainName(domain);
 };
 
 std::pair<std::string, std::string> CHttpUrl::ParseUrl(const std::string & url) const
@@ -39,16 +39,6 @@ std::string CHttpUrl::ParseProtocol(const std::string & protocol) const
 	return boost::algorithm::to_lower_copy(protocol);
 }
 
-std::string CHttpUrl::ProtocolToString(Protocol protocolValue) const
-{
-	return (protocolValue == Protocol::HTTPS) ? "https" : "http";
-}
-
-Protocol CHttpUrl::StringToProtocol(const std::string & value) const
-{
-	return (value == "https") ? Protocol::HTTPS : Protocol::HTTP;
-}
-
 std::pair<std::string, std::string> CHttpUrl::ParseAddress(const std::string & address) const
 {
 	boost::regex addressRegEx("([^\\s/]+)(/\\S*)?");
@@ -58,22 +48,13 @@ std::pair<std::string, std::string> CHttpUrl::ParseAddress(const std::string & a
 	return std::make_pair<std::string, std::string>(addressResults[1], addressResults[2]);
 }
 
-std::pair<std::string, unsigned short> CHttpUrl::ParseDomain(const std::string & domain) const
+std::pair<std::string, std::string> CHttpUrl::ParseDomain(const std::string & domain) const
 {
 	boost::regex domainRegEx("([^\\s/:]+)+(:(\\d+))?");
 	boost::smatch domainResults;
-	unsigned short port;
 	if (!boost::regex_match(domain, domainResults, domainRegEx))
 		throw CUrlParsingError("INVALID_DOMAIN");
-	if (domainResults[2] == "")
-	{
-		port = static_cast<unsigned short>(m_protocol);
-	}
-	else
-	{
-		port = static_cast<unsigned short>(std::stoi(domainResults[3]));
-	}
-	return std::pair<std::string, unsigned short>(domainResults[1], port);
+	return std::pair<std::string, std::string>(domainResults[1], domainResults[3]);
 }
 
 std::string CHttpUrl::ParseFile(const std::string & file) const
@@ -84,9 +65,26 @@ std::string CHttpUrl::ParseFile(const std::string & file) const
 	return (file[0] == '/') ? file : "/" + file;
 }
 
+std::string CHttpUrl::ProtocolToString(Protocol protocolValue) const
+{
+	return (protocolValue == Protocol::HTTPS) ? "https" : "http";
+}
+
+Protocol CHttpUrl::StringToProtocol(const std::string & value) const
+{
+	return (value == "https") ? Protocol::HTTPS : Protocol::HTTP;
+}
+
+void CHttpUrl::CheckDomainName(const std::string & domain) const
+{
+	boost::regex domainRegEx("([^\\s/:]+)+");
+	if (!boost::regex_match(domain, domainRegEx))
+		throw CUrlParsingError("INVALID_DOMAIN");
+}
+
 std::string CHttpUrl::GetURL() const
 {
-	std::string protocolString = ProtocolToString(m_protocol)/*(m_protocol == Protocol::HTTPS) ? "https" : "http"*/;
+	std::string protocolString = ProtocolToString(m_protocol);
 	return protocolString + "://" + m_domain + m_file;
 }
 

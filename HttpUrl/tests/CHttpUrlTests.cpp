@@ -82,14 +82,17 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 
 		BOOST_AUTO_TEST_CASE(throws_exeption_if_file_name_is_invalid)
 		{
-			BOOST_REQUIRE_THROW(CHttpUrl("http://good.domain/not\nverygood.filename"), CUrlParsingError);
+			BOOST_REQUIRE_THROW(CHttpUrl("http://good.domain/not\tvery good.filename"), CUrlParsingError);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 
-	/*BOOST_AUTO_TEST_CASE(can_be_constructed_by_another_constructor)
+	BOOST_AUTO_TEST_CASE(can_be_constructed_by_another_constructor)
 	{
-
-	}*/
+		{
+			CHttpUrl url("localhost", "folder1/index.html");
+			VerifyHttpUrl(url, Protocol::HTTP, "localhost", "/folder1/index.html", 80);
+		}
+	}
 
 
 BOOST_AUTO_TEST_SUITE_END()
