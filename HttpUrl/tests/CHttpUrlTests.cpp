@@ -15,8 +15,8 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 	BOOST_AUTO_TEST_CASE(can_be_constructed_from_valid_url)
 	{
 		{
-			CHttpUrl url("http://good.domain/veryGoodFolder/file.f");
-			VerifyHttpUrl(url, Protocol::HTTP, "good.domain", "/veryGoodFolder/file.f", 80);
+			CHttpUrl url("http://good1.domain/veryGoodFolder/file.f");
+			VerifyHttpUrl(url, Protocol::HTTP, "good1.domain", "/veryGoodFolder/file.f", 80);
 		}
 		{
 			CHttpUrl url("https://good.domain/folder1/folder2/file.f");
@@ -27,8 +27,8 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 			VerifyHttpUrl(url, Protocol::HTTP, "good.domain", "/folder1/folder2/file.f", 900);
 		}
 		{
-			CHttpUrl url("http://good.domain");
-			VerifyHttpUrl(url, Protocol::HTTP, "good.domain", "/", 80);
+			CHttpUrl url("http://good.domain42");
+			VerifyHttpUrl(url, Protocol::HTTP, "good.domain42", "/", 80);
 		}
 		{
 			CHttpUrl url("http://localhost:800");
@@ -72,6 +72,7 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 		BOOST_AUTO_TEST_CASE(throws_exeption_if_protocol_is_invalid)
 		{
 			BOOST_REQUIRE_THROW(CHttpUrl("httd://smth.ru"), CUrlParsingError);
+			BOOST_REQUIRE_THROW(CHttpUrl("1http://smth.ru"), CUrlParsingError);
 		}
 
 		BOOST_AUTO_TEST_CASE(throws_exeption_if_domain_is_invalid)
