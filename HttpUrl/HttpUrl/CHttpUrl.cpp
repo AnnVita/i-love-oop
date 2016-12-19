@@ -7,19 +7,20 @@ CHttpUrl::CHttpUrl(std::string const & url)
 	std::pair<std::string, std::string> parsedUrl = ParseUrl(url);
 	m_protocol = from_string(ParseProtocol(parsedUrl.first));
 	std::pair<std::string, std::string> parsedAddress = ParseAddress(parsedUrl.second);
-	std::pair<std::string, unsigned short> parsedDomain = ParseDomain(parsedAddress.second);
+	std::pair<std::string, unsigned short> parsedDomain = ParseDomain(parsedAddress.first);
 	m_domain = parsedDomain.first;
 	m_port = parsedDomain.second;
 	m_file = ParseFile(parsedAddress.second);
-}
+};
 
-CHttpUrl::CHttpUrl(std::string const & domain, std::string const & file, Protocol protocol = HTTP, unsigned short port = 80)
+CHttpUrl::CHttpUrl(const std::string & domain, const std::string & file, Protocol protocol, unsigned short port)
 {
-	m_domain = domain;
-	m_file = file;
 	m_protocol = protocol;
-	m_port = port;
-}
+	std::pair<std::string, unsigned short> parsedDomain = ParseDomain(domain);
+	m_domain = parsedDomain.first;
+	m_port = parsedDomain.second;
+	m_file = ParseFile(file);
+};
 
 const std::pair<std::string, std::string> CHttpUrl::ParseUrl(const std::string & url)
 {
@@ -59,16 +60,25 @@ const std::pair<std::string, std::string> CHttpUrl::ParseAddress(const std::stri
 
 const std::pair<std::string, unsigned short> CHttpUrl::ParseDomain(const std::string & domain)
 {
-	boost::regex domainRegEx("([^\\s/:]+\\.[^\\s/:]+)+:?(\\d+)?");
+	boost::regex domainRegEx("([^\\s/:]+)+(:(\\d+))?");
 	boost::smatch domainResults;
+	unsigned short port;
 	if (!boost::regex_match(domain, domainResults, domainRegEx))
 		throw CUrlParsingError("invalid domain");
-	return std::pair<std::string, unsigned short>(domainResults[1], static_cast<unsigned short>(std::stoi(domainResults[2])));
+	if (domainResults[2] == "")
+	{
+		port = (m_protocol == Protocol::HTTP) ? 80 : 443;
+	}
+	else
+	{
+		port = static_cast<unsigned short>(std::stoi(domainResults[3]));
+	}
+	return std::pair<std::string, unsigned short>(domainResults[1], port);
 }
 
 const std::string CHttpUrl::ParseFile(const std::string & file)
 {
-	boost::regex fileRegEx("/?([^\\s]+)");
+	boost::regex fileRegEx("/?([^\\s]+)?");
 	if(!boost::regex_match(file, fileRegEx))
 		throw CUrlParsingError("invalid file name");
 	return (file[0] == '/') ? file : "/" + file;
