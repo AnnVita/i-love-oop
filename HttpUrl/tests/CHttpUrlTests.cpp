@@ -49,11 +49,6 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 		CHttpUrl url("http://smth.ru/folder1/folder2/file.f");
 		BOOST_CHECK_EQUAL(url.GetProtocol(), Protocol::HTTP);
 	}
-	BOOST_AUTO_TEST_CASE(can_return_url)
-	{
-		CHttpUrl url("http://smth.ru/folder1/folder2/file.f");
-		BOOST_CHECK_EQUAL(url.GetURL(), "http://smth.ru/folder1/folder2/file.f");
-	}
 	BOOST_AUTO_TEST_CASE(can_return_file)
 	{
 		CHttpUrl url("http://smth.ru/folder1/folder2/file.f");
@@ -86,11 +81,53 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 
-	BOOST_AUTO_TEST_CASE(can_be_constructed_by_another_constructor)
+	BOOST_AUTO_TEST_CASE(can_be_constructed_from_individual_parts_of_url)
 	{
 		{
-			CHttpUrl url("localhost", "folder1/index.html");
-			VerifyHttpUrl(url, Protocol::HTTP, "localhost", "/folder1/index.html", 80);
+			CHttpUrl url("localhost", "allCultureEvents/index.html");
+			VerifyHttpUrl(url, Protocol::HTTP, "localhost", "/allCultureEvents/index.html", 80);
+		}
+		{
+			CHttpUrl url("github.com", "AnnVita", Protocol::HTTPS, 443);
+			VerifyHttpUrl(url, Protocol::HTTPS, "github.com", "/AnnVita", 443);
+		}
+		{
+			CHttpUrl url("github.com", "", Protocol::HTTPS, 443);
+			VerifyHttpUrl(url, Protocol::HTTPS, "github.com", "/", 443);
+		}
+	}
+	BOOST_AUTO_TEST_SUITE(if_constructed_from_individual_parts_of_url_then)
+		BOOST_AUTO_TEST_CASE(throws_exeption_if_domain_name_is_invalid)
+		{
+			BOOST_REQUIRE_THROW(CHttpUrl("bad/Domain:com", "file", Protocol::HTTPS, 443), CUrlParsingError);
+		}
+		BOOST_AUTO_TEST_CASE(throws_exeption_if_file_name_is_invalid)
+		{
+			BOOST_REQUIRE_THROW(CHttpUrl("gooddomain.com", "invalid file name", Protocol::HTTPS, 443), CUrlParsingError);
+		}
+	BOOST_AUTO_TEST_SUITE_END()
+
+	BOOST_AUTO_TEST_CASE(can_return_url_string)
+	{
+		{
+			CHttpUrl url("http://smth.ru/folder1/folder2/file.f");
+			BOOST_CHECK_EQUAL(url.GetURL(), "http://smth.ru/folder1/folder2/file.f");
+		}
+		{
+			CHttpUrl url("https://smth.ru");
+			BOOST_CHECK_EQUAL(url.GetURL(), "https://smth.ru/");
+		}
+		{
+			CHttpUrl url("https://habrahabr.ru/post/64226/");
+			BOOST_CHECK_EQUAL(url.GetURL(), "https://habrahabr.ru/post/64226/");
+		}
+		{
+			CHttpUrl url("localhost", "index.html", Protocol::HTTP, 1111);
+			BOOST_CHECK_EQUAL(url.GetURL(), "http://localhost:1111/index.html");
+		}
+		{
+			CHttpUrl url("localhost", "index.html", Protocol::HTTP);
+			BOOST_CHECK_EQUAL(url.GetURL(), "http://localhost/index.html");
 		}
 	}
 
