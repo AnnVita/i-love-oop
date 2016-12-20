@@ -159,11 +159,13 @@
   <ItemGroup>
     <ClInclude Include="..\HttpUrl\CHttpUrl.h" />
     <ClInclude Include="..\HttpUrl\CUrlParsingError.h" />
+    <ClInclude Include="..\HttpUrl\errorTitles.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\HttpUrl\CHttpUrl.cpp" />
+    <ClCompile Include="..\HttpUrl\CUrlParsingError.cpp" />
     <ClCompile Include="CHttpUrlTests.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "../HttpUrl/CHttpUrl.h"
 #include "../HttpUrl/CUrlParsingError.h"
+#include "../HttpUrl/errorTitles.h"
+
 
 
 void VerifyHttpUrl(const CHttpUrl & url, Protocol expectedProtocol, const std::string & expectedDomain, const std::string & expectedFile, unsigned short expectedPort)
