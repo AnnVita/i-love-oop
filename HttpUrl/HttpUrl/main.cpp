@@ -25,7 +25,7 @@ int main()
 void PrintUrlInfo(const CHttpUrl & url)
 {
 	std::cout << "URL info:" << std::endl
-		<< "Protocol: " << url.ProtocolToString() << std::endl
+		<< "Protocol: " << url.ProtocolToString(url.GetProtocol()) << std::endl
 		<< "Domain: " << url.GetDomain() << std::endl
 		<< "Port: " << url.GetPort() << std::endl
 		<< "File: " << url.GetFile() << std::endl

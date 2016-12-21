@@ -19,8 +19,7 @@ public:
 	std::string GetFile() const;
 	Protocol GetProtocol() const;
 	unsigned short GetPort() const;
-	std::string ProtocolToString() const;
-	static Protocol StringToProtocol(const std::string & value);
+	static std::string ProtocolToString(Protocol value);
 
 private:
 	static std::pair<std::string, std::string> ParseUrl(const std::string & url);
@@ -31,7 +30,7 @@ private:
 	static void CheckDomainName(const std::string & domain);
 	static void CheckPort(unsigned short port);
 
-
+	static Protocol StringToProtocol(const std::string & value);
 	std::string m_domain, m_file;
 	Protocol m_protocol;
 	unsigned short m_port;

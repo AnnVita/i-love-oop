@@ -68,19 +68,20 @@ std::string CHttpUrl::ParseFile(const std::string & file)
 	return (file[0] == '/') ? file : "/" + file;
 }
 
-std::string CHttpUrl::ProtocolToString() const
+std::string CHttpUrl::ProtocolToString(Protocol value)
 {
 	std::string result;
-	if (m_protocol == Protocol::HTTP)
+	if (value == Protocol::HTTP)
 	{
 		result = "http";
 	}
-	else if (m_protocol == Protocol::HTTPS)
+	else if (value == Protocol::HTTPS)
 	{
 		result = "https";
 	}
 	return result;
 }
+
 
 Protocol CHttpUrl::StringToProtocol(const std::string & value)
 {
@@ -111,7 +112,7 @@ void CHttpUrl::CheckPort(unsigned short port)
 
 std::string CHttpUrl::GetURL() const
 {
-	std::string protocolString = ProtocolToString();
+	std::string protocolString = ProtocolToString(m_protocol);
 	std::string portString = (m_port == static_cast<unsigned short>(m_protocol)) ? "" : ":" + std::to_string(m_port);
 	return protocolString + "://" + m_domain + portString + m_file;
 }
