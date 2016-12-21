@@ -102,6 +102,8 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 		BOOST_AUTO_TEST_CASE(throws_exeption_if_domain_name_is_invalid)
 		{
 			BOOST_REQUIRE_THROW(CHttpUrl("bad/Domain:com", "file", Protocol::HTTPS, 443), CUrlParsingError);
+			BOOST_REQUIRE_THROW(CHttpUrl(":bad", "file"), CUrlParsingError);
+			BOOST_REQUIRE_THROW(CHttpUrl("", "file"), CUrlParsingError);
 		}
 		BOOST_AUTO_TEST_CASE(throws_exeption_if_file_name_is_invalid)
 		{
