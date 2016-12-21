@@ -133,6 +133,10 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 			CHttpUrl url("localhost", "index.html", Protocol::HTTP);
 			BOOST_CHECK_EQUAL(url.GetURL(), "http://localhost/index.html");
 		}
+		{
+			CHttpUrl url("localhost", "index.html", Protocol::HTTP, 443);
+			BOOST_CHECK_EQUAL(url.GetURL(), "http://localhost:443/index.html");
+		}
 	}
 
 

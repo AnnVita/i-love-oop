@@ -104,7 +104,7 @@ void CHttpUrl::CheckDomainName(const std::string & domain) const
 std::string CHttpUrl::GetURL() const
 {
 	std::string protocolString = ProtocolToString(m_protocol);
-	std::string portString = ((m_port == static_cast<unsigned short>(Protocol::HTTP)) || (m_port == static_cast<unsigned short>(Protocol::HTTPS))) ? "" : ":" + std::to_string(m_port);
+	std::string portString = (m_port == static_cast<unsigned short>(m_protocol)) ? "" : ":" + std::to_string(m_port);
 	return protocolString + "://" + m_domain + portString + m_file;
 }
 
