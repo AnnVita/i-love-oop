@@ -81,6 +81,11 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 		{
 			BOOST_REQUIRE_THROW(CHttpUrl("http://good.domain/not\tvery good.filename"), CUrlParsingError);
 		}
+		BOOST_AUTO_TEST_CASE(throws_exeption_if_port_is_invalid)
+		{
+			BOOST_REQUIRE_THROW(CHttpUrl("http://good.domain:0/goodFilename.html"), CUrlParsingError);
+			BOOST_REQUIRE_THROW(CHttpUrl("http://good.domain:65536/goodFilename.html"), CUrlParsingError);
+		}
 	BOOST_AUTO_TEST_SUITE_END()
 
 	BOOST_AUTO_TEST_CASE(can_be_constructed_from_individual_parts_of_url)
@@ -108,6 +113,11 @@ BOOST_AUTO_TEST_SUITE(HttpUrl_class)
 		BOOST_AUTO_TEST_CASE(throws_exeption_if_file_name_is_invalid)
 		{
 			BOOST_REQUIRE_THROW(CHttpUrl("gooddomain.com", "invalid file name", Protocol::HTTPS, 443), CUrlParsingError);
+		}
+		BOOST_AUTO_TEST_CASE(throws_exeption_if_port_is_invalid)
+		{
+			BOOST_REQUIRE_THROW(CHttpUrl("gooddomain.com", "goodFile.html", Protocol::HTTPS, 65536), CUrlParsingError);
+			BOOST_REQUIRE_THROW(CHttpUrl("gooddomain.com", "goodFile.html", Protocol::HTTPS, 0), CUrlParsingError);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 

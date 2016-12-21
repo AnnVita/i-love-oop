@@ -11,6 +11,7 @@ CHttpUrl::CHttpUrl(std::string const & url)
 	std::pair<std::string, std::string> parsedDomain = ParseDomain(parsedAddress.first);
 	m_domain = parsedDomain.first;
 	m_port = (parsedDomain.second.empty()) ? static_cast<unsigned short>(m_protocol) : static_cast<unsigned short>(std::stoi(parsedDomain.second));
+	CheckPort(m_port);
 	m_file = ParseFile(parsedAddress.second);
 };
 
@@ -21,9 +22,10 @@ CHttpUrl::CHttpUrl(std::string const & domain, std::string const & file, Protoco
 	, m_port(port)
 {
 	CheckDomainName(domain);
+	CheckPort(port);
 };
 
-std::pair<std::string, std::string> CHttpUrl::ParseUrl(const std::string & url) const
+std::pair<std::string, std::string> CHttpUrl::ParseUrl(const std::string & url)
 {
 	boost::regex urlRegEx("(\\w+)://(\\S+)");
 	boost::smatch urlResults;
@@ -32,7 +34,7 @@ std::pair<std::string, std::string> CHttpUrl::ParseUrl(const std::string & url) 
 	return std::make_pair<std::string, std::string>(urlResults[1], urlResults[2]);
 }
 
-std::string CHttpUrl::ParseProtocol(const std::string & protocol) const
+std::string CHttpUrl::ParseProtocol(const std::string & protocol)
 {
 	boost::regex protocolRegEx("(?i)https?");
 	if (!boost::regex_match(protocol, protocolRegEx))
@@ -40,7 +42,7 @@ std::string CHttpUrl::ParseProtocol(const std::string & protocol) const
 	return boost::algorithm::to_lower_copy(protocol);
 }
 
-std::pair<std::string, std::string> CHttpUrl::ParseAddress(const std::string & address) const
+std::pair<std::string, std::string> CHttpUrl::ParseAddress(const std::string & address)
 {
 	boost::regex addressRegEx("([^\\s/]+)(/\\S*)?");
 	boost::smatch addressResults;
@@ -49,7 +51,7 @@ std::pair<std::string, std::string> CHttpUrl::ParseAddress(const std::string & a
 	return std::make_pair<std::string, std::string>(addressResults[1], addressResults[2]);
 }
 
-std::pair<std::string, std::string> CHttpUrl::ParseDomain(const std::string & domain) const
+std::pair<std::string, std::string> CHttpUrl::ParseDomain(const std::string & domain)
 {
 	boost::regex domainRegEx("([^\\s/:]+)+(:(\\d+))?");
 	boost::smatch domainResults;
@@ -58,7 +60,7 @@ std::pair<std::string, std::string> CHttpUrl::ParseDomain(const std::string & do
 	return std::pair<std::string, std::string>(domainResults[1], domainResults[3]);
 }
 
-std::string CHttpUrl::ParseFile(const std::string & file) const
+std::string CHttpUrl::ParseFile(const std::string & file)
 {
 	boost::regex fileRegEx("/?([^\\s]+)?");
 	if(!boost::regex_match(file, fileRegEx))
@@ -66,21 +68,21 @@ std::string CHttpUrl::ParseFile(const std::string & file) const
 	return (file[0] == '/') ? file : "/" + file;
 }
 
-std::string CHttpUrl::ProtocolToString(Protocol protocolValue) const
+std::string CHttpUrl::ProtocolToString() const
 {
 	std::string result;
-	if (protocolValue == Protocol::HTTP)
+	if (m_protocol == Protocol::HTTP)
 	{
 		result = "http";
 	}
-	else if (protocolValue == Protocol::HTTPS)
+	else if (m_protocol == Protocol::HTTPS)
 	{
 		result = "https";
 	}
 	return result;
 }
 
-Protocol CHttpUrl::StringToProtocol(const std::string & value) const
+Protocol CHttpUrl::StringToProtocol(const std::string & value)
 {
 	if (value == "http")
 	{
@@ -94,16 +96,22 @@ Protocol CHttpUrl::StringToProtocol(const std::string & value) const
 		throw CUrlParsingError(INVALID_PROTOCOL);
 }
 
-void CHttpUrl::CheckDomainName(const std::string & domain) const
+void CHttpUrl::CheckDomainName(const std::string & domain)
 {
 	boost::regex domainRegEx("([^\\s/:]+)+");
 	if (!boost::regex_match(domain, domainRegEx))
 		throw CUrlParsingError(INVALID_DOMAIN);
 }
 
+void CHttpUrl::CheckPort(unsigned short port)
+{
+	if (!(port > 0 && port < 65536))
+		throw CUrlParsingError(INVALID_PORT);
+}
+
 std::string CHttpUrl::GetURL() const
 {
-	std::string protocolString = ProtocolToString(m_protocol);
+	std::string protocolString = ProtocolToString();
 	std::string portString = (m_port == static_cast<unsigned short>(m_protocol)) ? "" : ":" + std::to_string(m_port);
 	return protocolString + "://" + m_domain + portString + m_file;
 }
@@ -121,11 +129,6 @@ std::string CHttpUrl::GetFile() const
 Protocol CHttpUrl::GetProtocol() const
 {
 	return m_protocol;
-}
-
-std::string CHttpUrl::GetStringProtocol() const
-{
-	return ProtocolToString(m_protocol);
 }
 
 unsigned short CHttpUrl::GetPort() const

@@ -6,3 +6,4 @@ static const std::string INVALID_PROTOCOL = "Invalid protocol!";
 static const std::string INVALID_DOMAIN = "Invalid domain!";
 static const std::string INVALID_ADDRESS = "Invalid address!";
 static const std::string INVALID_FILE_NAME = "Invalid file name!";
+static const std::string INVALID_PORT = "Invalid port!";
