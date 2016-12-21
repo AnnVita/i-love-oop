@@ -69,11 +69,11 @@ std::string CHttpUrl::ParseFile(const std::string & file) const
 std::string CHttpUrl::ProtocolToString(Protocol protocolValue) const
 {
 	std::string result;
-	if (m_protocol == Protocol::HTTP)
+	if (protocolValue == Protocol::HTTP)
 	{
 		result = "http";
 	}
-	else if (m_protocol == Protocol::HTTPS)
+	else if (protocolValue == Protocol::HTTPS)
 	{
 		result = "https";
 	}
