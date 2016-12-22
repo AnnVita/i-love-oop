@@ -11,7 +11,7 @@
 #include <tchar.h>
 #include <string>
 #include <regex>
-#include <boost/regex.hpp>
+#include <boost/regex/v4/regex.hpp>
 #include <boost/algorithm/string/case_conv.hpp>
 #include <iostream>
 #include <stdexcept>
