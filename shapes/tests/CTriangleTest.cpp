@@ -15,9 +15,9 @@ BOOST_FIXTURE_TEST_SUITE(Triangle, TriangleFixture_)
 
 	BOOST_AUTO_TEST_CASE(get_three_vertices)
 	{
-		VerifyPoint(triangle.GetVertex1(), 0, 0);
-		VerifyPoint(triangle.GetVertex2(), 0, 3);
-		VerifyPoint(triangle.GetVertex3(), 4, 3);
+		VerifyPoint(triangle.GetVertex(CTriangle::Vertices::first), 0, 0);
+		VerifyPoint(triangle.GetVertex(CTriangle::Vertices::second), 0, 3);
+		VerifyPoint(triangle.GetVertex(CTriangle::Vertices::third), 4, 3);
 	}
 
     BOOST_AUTO_TEST_CASE(has_a_perimeter)

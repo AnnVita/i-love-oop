@@ -7,7 +7,8 @@ struct CircleFixture_
     CCircle circle;
     CircleFixture_()
         :circle({ 40, 11 }, 24, "#2244fa", "#111111")
-    {}
+    {
+	}
 };
 
 BOOST_FIXTURE_TEST_SUITE(Circle, CircleFixture_)
@@ -68,5 +69,10 @@ BOOST_FIXTURE_TEST_SUITE(Circle, CircleFixture_)
 			input >> circle;
 			BOOST_CHECK(input.fail());
 		}
+	}
+	BOOST_AUTO_TEST_CASE(ignore_parameters_sign)
+	{
+		CCircle circle({ 40, 11 }, -24, "#2244fa", "#111111");
+		BOOST_CHECK_EQUAL(circle.GetRadius(), 24.0f);
 	}
 BOOST_AUTO_TEST_SUITE_END()

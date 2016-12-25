@@ -1,41 +1,19 @@
 #include "stdafx.h"
-#include "ISolidShape.h"
+#include "CSolidShape.h"
 #include "CTriangle.h"
 #include "CPoint.h"
 
-CTriangle::CTriangle(CPoint const & firstVertex, CPoint const & secondVertex, CPoint const & thirdVertex, std::string const & outlineColor, std::string const & fillColor)
-	:ISolidShape("Triangle"),
-	m_fillColor(fillColor),
-	m_outlineColor(outlineColor)
+CTriangle::CTriangle(CPoint const & firstVertex, CPoint const & secondVertex, CPoint const & thirdVertex, const std::string & outlineColor, const std::string & fillColor)
+	: CSolidShape("Triangle", outlineColor, fillColor)
 {
 	m_vertices[0] = firstVertex;
 	m_vertices[1] = secondVertex;
 	m_vertices[2] = thirdVertex;
 }
 
-std::string CTriangle::GetOutlineColor() const
+CPoint const & CTriangle::GetVertex(Vertices const & vertexId) const
 {
-	return m_outlineColor;
-};
-
-std::string CTriangle::GetFillColor() const
-{
-	return m_fillColor;
-};
-
-CPoint const & CTriangle::GetVertex1() const
-{
-	return m_vertices[0];
-}
-
-CPoint const & CTriangle::GetVertex2() const
-{
-	return m_vertices[1];
-}
-
-CPoint const & CTriangle::GetVertex3() const
-{
-	return m_vertices[2];
+	return m_vertices[vertexId];
 }
 
 float CTriangle::GetArea() const

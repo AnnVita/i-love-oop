@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Control.h"
-#include "IShape.h"
+#include "CShape.h"
 
 using namespace std;
 using namespace std::placeholders;
@@ -17,19 +17,19 @@ CAppControl::CAppControl(std::istream & input, std::ostream & output)
 {
 }
 
-std::shared_ptr<IShape> CAppControl::GetMaxAreaShape(std::vector<std::shared_ptr<IShape>> const & shapes) const
+std::shared_ptr<CShape> CAppControl::GetMaxAreaShape(std::vector<std::shared_ptr<CShape>> const & shapes) const
 {
 	return (shapes.empty()) ? nullptr : *max_element(shapes.begin(), shapes.end(),
-		[&](std::shared_ptr<IShape> const & shape1, std::shared_ptr<IShape> const& shape2)
+		[&](std::shared_ptr<CShape> const & shape1, std::shared_ptr<CShape> const& shape2)
 		{
 			return shape1->GetArea() < shape2->GetArea();
 		});
 }
 
-std::shared_ptr<IShape> CAppControl::GetMinPerimeterShape(std::vector<std::shared_ptr<IShape>> const & shapes) const
+std::shared_ptr<CShape> CAppControl::GetMinPerimeterShape(std::vector<std::shared_ptr<CShape>> const & shapes) const
 {
 	return (shapes.empty()) ? nullptr : *min_element(shapes.begin(), shapes.end(),
-		[&](std::shared_ptr<IShape> const& shape1, std::shared_ptr<IShape> const& shape2)
+		[&](std::shared_ptr<CShape> const& shape1, std::shared_ptr<CShape> const& shape2)
 		{
 			return shape1->GetPerimeter() < shape2->GetPerimeter();
 		});
@@ -48,7 +48,7 @@ bool CAppControl::HandleCommand()
 		return true;
 	}
 
-	std::shared_ptr<IShape> shape;
+	std::shared_ptr<CShape> shape;
 
 	auto it = m_actionMap.find(action);
 	if (it != m_actionMap.end())
@@ -79,7 +79,7 @@ void CAppControl::PrintInfo() const
 	}
 }
 
-bool CAppControl::CreateLine(std::istream & args, std::shared_ptr<IShape> & shape)
+bool CAppControl::CreateLine(std::istream & args, std::shared_ptr<CShape> & shape)
 {
 	std::shared_ptr<CLineSegment> line;
 	if (args >> line)
@@ -90,7 +90,7 @@ bool CAppControl::CreateLine(std::istream & args, std::shared_ptr<IShape> & shap
 	return false;
 }
 
-bool CAppControl::CreateTriangle(std::istream & args, std::shared_ptr<IShape> & shape)
+bool CAppControl::CreateTriangle(std::istream & args, std::shared_ptr<CShape> & shape)
 {
 	std::shared_ptr<CTriangle> triangle;
 	if (args >> triangle)
@@ -101,7 +101,7 @@ bool CAppControl::CreateTriangle(std::istream & args, std::shared_ptr<IShape> & 
 	return false;
 }
 
-bool CAppControl::CreateRectangle(std::istream & args, std::shared_ptr<IShape> & shape)
+bool CAppControl::CreateRectangle(std::istream & args, std::shared_ptr<CShape> & shape)
 {
 	std::shared_ptr<CRectangle> rectangle;
 	if (args >> rectangle)
@@ -112,7 +112,7 @@ bool CAppControl::CreateRectangle(std::istream & args, std::shared_ptr<IShape> &
 	return false;
 }
 
-bool CAppControl::CreateCircle(std::istream & args, std::shared_ptr<IShape> & shape)
+bool CAppControl::CreateCircle(std::istream & args, std::shared_ptr<CShape> & shape)
 {
 	std::shared_ptr<CCircle> circle;
 	if (args >> circle)

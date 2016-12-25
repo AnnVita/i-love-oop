@@ -1,15 +1,13 @@
 #include "stdafx.h"
 #include "CRectangle.h"
-#include "ISolidShape.h"
+#include "CSolidShape.h"
 #include "CPoint.h"
 
-CRectangle::CRectangle(CPoint const & leftTop, float width, float height, std::string const & outlineColor, std::string const & fillColor)
-	:ISolidShape("Rectangle"),
+CRectangle::CRectangle(CPoint const & leftTop, float width, float height, const std::string & outlineColor, const std::string & fillColor)
+	:CSolidShape("Rectangle", outlineColor, fillColor),
 	m_leftTop(leftTop),
-	m_height(height),
-	m_width(width),
-	m_fillColor(fillColor),
-	m_outlineColor(outlineColor)
+	m_height(abs(height)),
+	m_width(abs(width))
 {
 }
 
@@ -28,16 +26,6 @@ CPoint const & CRectangle::GetLeftTop() const
 {
 	return m_leftTop;
 }
-
-std::string CRectangle::GetOutlineColor() const
-{
-	return m_outlineColor;
-};
-
-std::string CRectangle::GetFillColor() const
-{
-	return m_fillColor;
-};
 
 float CRectangle::GetArea() const
 {

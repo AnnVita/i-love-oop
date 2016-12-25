@@ -1,26 +1,14 @@
 #include "stdafx.h"
 #include "CCircle.h"
-#include "ISolidShape.h"
+#include "CSolidShape.h"
 #include "CPoint.h"
 
-CCircle::CCircle(CPoint const & center, float radius, std::string const & outlineColor, std::string const & fillColor)
-	:ISolidShape("Circle"),
+CCircle::CCircle(CPoint const & center, float radius, const std::string & outlineColor, const std::string & fillColor)
+	:CSolidShape("Circle", outlineColor, fillColor),
 	m_center(center),
-	m_radius(radius),
-	m_outlineColor(outlineColor),
-	m_fillColor(fillColor)
+	m_radius(abs(radius))
 {
 }
-
-std::string CCircle::GetOutlineColor() const
-{
-	return m_outlineColor;
-};
-
-std::string CCircle::GetFillColor() const
-{
-	return m_fillColor;
-};
 
 CPoint const & CCircle::GetCenter() const
 {

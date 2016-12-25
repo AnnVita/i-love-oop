@@ -4,8 +4,7 @@
 CLineSegment::CLineSegment(const CPoint & start, const CPoint & end, const std::string & outlineColor)
 	:m_begin(start)
 	, m_end(end)
-	, m_outlineColor(outlineColor)
-	, IShape("Line")
+	, CShape("Line", outlineColor)
 {
 }
 
@@ -27,11 +26,6 @@ CPoint CLineSegment::GetStartPoint() const
 CPoint CLineSegment::GetEndPoint() const
 {
 	return m_end;
-}
-
-std::string CLineSegment::GetOutlineColor() const
-{
-	return m_outlineColor;
 }
 
 void CLineSegment::AppendProperties(std::ostream & strm) const

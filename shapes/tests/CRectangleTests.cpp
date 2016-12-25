@@ -65,4 +65,10 @@ BOOST_FIXTURE_TEST_SUITE(Rectangle, RectangleFixture_)
 			BOOST_CHECK(input.fail());
 		}
 	}
+	BOOST_AUTO_TEST_CASE(ignore_parameters_sign)
+	{
+		CRectangle rectangle({ 20.2f, 100 }, -100, -20, "#f255ff", "#00001f");
+		BOOST_CHECK_EQUAL(rectangle.GetHeight(), 20.0f);
+		BOOST_CHECK_EQUAL(rectangle.GetWidth(), 100.0f);
+	}
 BOOST_AUTO_TEST_SUITE_END()

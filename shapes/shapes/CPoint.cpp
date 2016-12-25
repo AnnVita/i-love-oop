@@ -2,8 +2,8 @@
 #include "CPoint.h"
 
 CPoint::CPoint(float x, float y)
-	: x(x)
-	, y(y)
+	: x(abs(x))
+	, y(abs(y))
 {
 }
 

@@ -161,9 +161,9 @@
     <ClInclude Include="..\shapes\CLineSegment.h" />
     <ClInclude Include="..\shapes\CPoint.h" />
     <ClInclude Include="..\shapes\CRectangle.h" />
+    <ClInclude Include="..\shapes\CSolidShape.h" />
     <ClInclude Include="..\shapes\CTriangle.h" />
-    <ClInclude Include="..\shapes\IShape.h" />
-    <ClInclude Include="..\shapes\ISolidShape.h" />
+    <ClInclude Include="..\shapes\CShape.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestFunctions.h" />
@@ -173,9 +173,9 @@
     <ClCompile Include="..\shapes\CLineSegment.cpp" />
     <ClCompile Include="..\shapes\CPoint.cpp" />
     <ClCompile Include="..\shapes\CRectangle.cpp" />
+    <ClCompile Include="..\shapes\CSolidShape.cpp" />
     <ClCompile Include="..\shapes\CTriangle.cpp" />
-    <ClCompile Include="..\shapes\IShape.cpp" />
-    <ClCompile Include="..\shapes\ISolidShape.cpp" />
+    <ClCompile Include="..\shapes\CShape.cpp" />
     <ClCompile Include="CCircleTests.cpp" />
     <ClCompile Include="CLineSegmentTests.cpp" />
     <ClCompile Include="CPointTests.cpp" />

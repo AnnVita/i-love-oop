@@ -1,27 +1,24 @@
 #pragma once
-#include "ISolidShape.h"
+#include "CSolidShape.h"
 #include "CPoint.h"
 
-class CCircle : public ISolidShape
+class CCircle : public CSolidShape
 {
 public:
-	CCircle(CPoint const & center, float radius, std::string const & outlineColor, std::string const & fillColor);
-	~CCircle() = default;
+	CCircle(CPoint const & center, float radius, const std::string & outlineColor, const std::string & fillColor);
 
-	float GetArea() const override;
-	float GetPerimeter() const override;
-	std::string GetOutlineColor() const override;
-	std::string GetFillColor() const override;
+	float GetArea() const override final;
+	float GetPerimeter() const override final;
 
 	float GetRadius() const;
 	CPoint const & GetCenter() const;
+
 protected:
 	void AppendProperties(std::ostream & strm) const override;
+
 private:
 	CPoint m_center;
 	float m_radius;
-	std::string m_outlineColor;
-	std::string m_fillColor;
 };
 
 bool operator >> (std::istream & input, std::shared_ptr<CCircle> & circle);

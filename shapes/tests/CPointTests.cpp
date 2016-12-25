@@ -7,7 +7,13 @@ BOOST_AUTO_TEST_SUITE(Point_class)
 	BOOST_AUTO_TEST_CASE(has_zero_values_by_default)
 	{
 		CPoint point;
-		VerifyPoint(point, 0.0, 0.0);
+		VerifyPoint(point, 0.0f, 0.0f);
+	}
+	
+	BOOST_AUTO_TEST_CASE(ignore_coordinates_sign)
+	{
+		CPoint point(-1.0f, -2.0f);
+		VerifyPoint(point, 1.0f, 2.0f);
 	}
 
     BOOST_AUTO_TEST_CASE(can_be_filled_by_init_point)
