@@ -34,6 +34,11 @@ void CLineSegment::AppendProperties(std::ostream & strm) const
 		<< " End point = " << GetEndPoint().ToString();
 }
 
+void CLineSegment::Draw(ICanvas & canvas) const
+{
+	canvas.DrawLine(m_begin, m_end, FromHex(GetOutlineColor()));
+}
+
 bool operator >> (std::istream & input, std::shared_ptr<CLineSegment> & line)
 {
 	CPoint start;

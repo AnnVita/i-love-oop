@@ -13,6 +13,8 @@ public:
 	float GetRadius() const;
 	CPoint const & GetCenter() const;
 
+	void Draw(ICanvas & canvas) const override;
+
 protected:
 	void AppendProperties(std::ostream & strm) const override;
 

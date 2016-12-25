@@ -13,6 +13,7 @@ public:
 	CPoint GetStartPoint() const;
 	CPoint GetEndPoint() const;
 
+	void Draw(ICanvas & canvas) const override;
 protected:
 	void AppendProperties(std::ostream & strm) const override;
 

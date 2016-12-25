@@ -30,5 +30,5 @@
 #include <math.h>
 #include <fstream>
 
-
+#include <SFML/Graphics.hpp>
 // TODO: reference additional headers your program requires here

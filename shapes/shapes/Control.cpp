@@ -122,3 +122,29 @@ bool CAppControl::CreateCircle(std::istream & args, std::shared_ptr<CShape> & sh
 	}
 	return false;
 }
+
+void CAppControl::DrawShapes()
+{
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 8;
+
+	CCanvas canvas(sf::VideoMode(800, 600), "Shapes");
+	canvas.AddShapes(m_shapes);
+	canvas.Clear(sf::Color::White);
+	canvas.DrawShapes();
+	canvas.Display();
+	while (canvas.IsOpen())
+	{
+		HandleEventsQueue(canvas);
+	}
+}
+
+void CAppControl::HandleEventsQueue(CCanvas & canvas)
+{
+	sf::Event event;
+	while (canvas.PollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+			canvas.Close();
+	}
+}

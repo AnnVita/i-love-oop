@@ -44,6 +44,22 @@ void CRectangle::AppendProperties(std::ostream & strm) const
 		<< " FillColor = " << GetFillColor();
 }
 
+void CRectangle::Draw(ICanvas & canvas) const
+{
+	std::vector<CPoint >vertices =
+	{
+		m_leftTop,
+		{ m_leftTop.x + m_width, m_leftTop.y },
+		{ m_leftTop.x + m_width, m_leftTop.y + m_height },
+		{ m_leftTop.x, m_leftTop.y + m_height }
+	};
+	canvas.FillPolygon(vertices, FromHex(GetFillColor()));
+	canvas.DrawLine(vertices[0], vertices[1], FromHex(GetOutlineColor()));
+	canvas.DrawLine(vertices[1], vertices[2], FromHex(GetOutlineColor()));
+	canvas.DrawLine(vertices[2], vertices[3], FromHex(GetOutlineColor()));
+	canvas.DrawLine(vertices[3], vertices[0], FromHex(GetOutlineColor()));
+}
+
 bool operator >> (std::istream & input, std::shared_ptr<CRectangle> & rectangle)
 {
 	CPoint leftTop;

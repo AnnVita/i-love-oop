@@ -14,6 +14,7 @@ public:
 	float GetWidth() const;
 	float GetHeight() const;
 
+	void Draw(ICanvas & canvas) const override;
 protected:
 	void AppendProperties(std::ostream & strm) const override;
 

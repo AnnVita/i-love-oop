@@ -26,5 +26,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	control.PrintInfo();
+	control.DrawShapes();
+
 	return 0;
 }

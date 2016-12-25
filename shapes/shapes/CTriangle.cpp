@@ -6,9 +6,9 @@
 CTriangle::CTriangle(CPoint const & firstVertex, CPoint const & secondVertex, CPoint const & thirdVertex, const std::string & outlineColor, const std::string & fillColor)
 	: CSolidShape("Triangle", outlineColor, fillColor)
 {
-	m_vertices[0] = firstVertex;
-	m_vertices[1] = secondVertex;
-	m_vertices[2] = thirdVertex;
+	m_vertices.push_back(firstVertex);
+	m_vertices.push_back(secondVertex);
+	m_vertices.push_back(thirdVertex);
 }
 
 CPoint const & CTriangle::GetVertex(Vertices const & vertexId) const
@@ -40,6 +40,14 @@ float CTriangle::GetSideLength(CPoint const & firstVertex, CPoint const & second
 void CTriangle::AppendProperties(std::ostream & strm) const
 {
 	strm << " FillColor = " << GetFillColor();
+}
+
+void CTriangle::Draw(ICanvas & canvas) const
+{
+	canvas.FillPolygon(m_vertices, FromHex(GetFillColor()));
+	canvas.DrawLine(m_vertices[0], m_vertices[1], FromHex(GetOutlineColor()));
+	canvas.DrawLine(m_vertices[1], m_vertices[2], FromHex(GetOutlineColor()));
+	canvas.DrawLine(m_vertices[2], m_vertices[0], FromHex(GetOutlineColor()));
 }
 
 bool operator >> (std::istream & input, std::shared_ptr<CTriangle> & triangle)

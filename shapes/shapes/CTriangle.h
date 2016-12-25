@@ -20,11 +20,12 @@ public:
 	CPoint const & GetVertex(Vertices const & vertexId) const;
 	float GetSideLength(CPoint const & firstVertex, CPoint const & secondVertex) const;
 
+	void Draw(ICanvas & canvas) const override;
 protected:
 	void AppendProperties(std::ostream & strm) const override;
 
 private:
-	CPoint m_vertices[3];
+	std::vector<CPoint> m_vertices;
 };
 
 bool operator >> (std::istream & input, std::shared_ptr<CTriangle> & triangle);

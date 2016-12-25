@@ -5,6 +5,7 @@
 #include "CCircle.h"
 #include "CRectangle.h"
 #include "CTriangle.h"
+#include "CCanvas.h"
 
 class CShape;
 
@@ -15,12 +16,15 @@ public:
 	~CAppControl() = default;
 	bool HandleCommand();
 	void PrintInfo() const;
+	void DrawShapes();
 
 private:
 	bool CreateLine(std::istream & args, std::shared_ptr<CShape> &shape);
 	bool CreateRectangle(std::istream & args, std::shared_ptr<CShape> &shape);
 	bool CreateTriangle(std::istream & args, std::shared_ptr<CShape> &shape);
 	bool CreateCircle(std::istream & args, std::shared_ptr<CShape> &shape);
+
+	void HandleEventsQueue(CCanvas & canvas);
 
 	const std::map<std::string, std::function<bool(std::istream & args, std::shared_ptr<CShape> & shape)>> m_actionMap;
 

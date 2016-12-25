@@ -36,6 +36,12 @@ void CCircle::AppendProperties(std::ostream & strm) const
 		<< " FillColor = " << GetFillColor();
 }
 
+void CCircle::Draw(ICanvas & canvas) const
+{
+	canvas.DrawCircle(m_center, m_radius, FromHex(GetOutlineColor()));
+	canvas.FillCircle(m_center, m_radius, FromHex(GetFillColor()));
+}
+
 bool operator >> (std::istream & input, std::shared_ptr<CCircle> & circle)
 {
 	CPoint center;
