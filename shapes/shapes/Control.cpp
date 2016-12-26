@@ -129,8 +129,8 @@ void CAppControl::DrawShapes()
 	settings.antialiasingLevel = 8;
 
 	CCanvas canvas(sf::VideoMode(800, 600), "Shapes");
-	canvas.AddShapes(m_shapes);
-	canvas.Clear(sf::Color::White);
+
+	canvas.FillShapesList(m_shapes);
 	canvas.DrawShapes();
 	canvas.Display();
 	while (canvas.IsOpen())

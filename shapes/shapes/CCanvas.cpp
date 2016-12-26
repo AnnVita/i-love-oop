@@ -6,7 +6,7 @@ CCanvas::CCanvas(sf::VideoMode videoMode, sf::String windowTitle)
 	m_window.create(videoMode, windowTitle);
 }
 
-void CCanvas::AddShapes(std::vector<std::shared_ptr<CShape>> const& shapes)
+void CCanvas::FillShapesList(std::vector<std::shared_ptr<CShape>> const & shapes)
 {
 	for (auto shape : shapes)
 	{
@@ -20,7 +20,7 @@ void CCanvas::DrawShapes()
 	draw(m_window, states);
 }
 
-void CCanvas::DrawLine(CPoint const& startPoint, CPoint const& endPoint, sf::Color const& outlineColor)
+void CCanvas::DrawLine(CPoint const & startPoint, CPoint const & endPoint, sf::Color const & outlineColor)
 {
 	sf::VertexArray line(sf::Lines);
 	line.append(sf::Vertex(sf::Vector2f(startPoint.x, startPoint.y), outlineColor));
@@ -28,18 +28,10 @@ void CCanvas::DrawLine(CPoint const& startPoint, CPoint const& endPoint, sf::Col
 	m_shapes.push_back(line);
 }
 
-void CCanvas::FillPolygon(std::vector<CPoint> const vertices, sf::Color const& fillColor)
+void CCanvas::FillPolygon(std::vector<CPoint> const vertices, sf::Color const & fillColor)
 {
 	sf::VertexArray polygon;
 	polygon.resize(vertices.size());
-	if (vertices.size() == 3)
-	{
-		polygon.setPrimitiveType(sf::Triangles);
-	}
-	else if (vertices.size() == 4)
-	{
-		polygon.setPrimitiveType(sf::Quads);
-	}
 	for (size_t i = 0; i < polygon.getVertexCount(); ++i)
 	{
 		polygon[i].position = sf::Vector2f(vertices[i].x, vertices[i].y);
@@ -48,7 +40,7 @@ void CCanvas::FillPolygon(std::vector<CPoint> const vertices, sf::Color const& f
 	m_shapes.push_back(polygon);
 }
 
-void CCanvas::DrawCircle(CPoint const& center, float radius, sf::Color const& outlineColor)
+void CCanvas::DrawCircle(CPoint const & center, float radius, sf::Color const & outlineColor)
 {
 	float angle = 0;
 	sf::VertexArray circle;
@@ -61,20 +53,7 @@ void CCanvas::DrawCircle(CPoint const& center, float radius, sf::Color const& ou
 	m_shapes.push_back(circle);
 }
 
-void CCanvas::DrawInnerCircle(CPoint const& center, float radius)
-{
-	float angle = 0;
-	sf::VertexArray circle;
-	circle.setPrimitiveType(sf::TriangleFan);
-	for (size_t i = 0; i < 7 * radius; ++i)
-	{
-		circle.append(sf::Vertex(sf::Vector2f((radius - 1) * cos(angle) + center.x, (radius - 1) * sin(angle) + center.y)));
-		angle = angle + ((2 * static_cast<float>(M_PI)) / (7 * radius));
-	}
-	m_shapes.push_back(circle);
-}
-
-void CCanvas::FillCircle(CPoint const& center, float radius, sf::Color const& fillColor)
+void CCanvas::FillCircle(CPoint const & center, float radius, sf::Color const & fillColor)
 {
 	DrawInnerCircle(center, radius);
 	for (size_t i = 0; i < m_shapes[m_shapes.size() - 1].getVertexCount(); ++i)
@@ -83,7 +62,22 @@ void CCanvas::FillCircle(CPoint const& center, float radius, sf::Color const& fi
 	}
 }
 
-void CCanvas::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void CCanvas::DrawInnerCircle(CPoint const & center, float radius)
+{
+	float angle = 0;
+	sf::VertexArray circle;
+	circle.setPrimitiveType(sf::TriangleFan);
+	for (size_t i = 0; i < 7 * radius; ++i)
+	{
+		circle.append(sf::Vertex(sf::Vector2f((radius - 3) * cos(angle) + center.x, (radius - 3) * sin(angle) + center.y)));
+		angle = angle + ((2 * static_cast<float>(M_PI)) / (7 * radius));
+	}
+
+	m_shapes.push_back(circle);
+}
+
+
+void CCanvas::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	for (auto shape : m_shapes)
 	{
