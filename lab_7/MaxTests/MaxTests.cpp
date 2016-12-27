@@ -27,6 +27,13 @@ BOOST_AUTO_TEST_SUITE(FindMaxEx_)
 		BOOST_CHECK_EQUAL(maxAthlete.name, "Sugar Ray Leonard");
 	}
 
+	BOOST_AUTO_TEST_CASE(can_find_max_athlet_by_weight)
+	{
+		BOOST_CHECK(FindMaxEx(athletes, maxAthlete, LessWeight));
+		BOOST_CHECK_EQUAL(maxAthlete.weight, 172.0f);
+		BOOST_CHECK_EQUAL(maxAthlete.name, "Sugar Ray Leonard");
+	}
+
 	BOOST_AUTO_TEST_CASE(returns_false_if_vector_is_empty)
 	{
 		BOOST_CHECK(empty.empty());
