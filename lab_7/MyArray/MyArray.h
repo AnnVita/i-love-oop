@@ -73,14 +73,36 @@ public:
 		return m_end[-1];
 	}
 
-	size_t GetSize()const
+	size_t GetSize() const
 	{
 		return m_end - m_begin;
 	}
 
-	size_t GetCapacity()const
+	size_t GetCapacity() const
 	{
 		return m_endOfCapacity - m_begin;
+	}
+
+	T & operator[](size_t n)
+	{
+		if (n >= GetSize())
+		{
+			throw std::out_of_range("Out of range!");
+		}
+		return *(m_begin + n);
+	}
+
+	void Resize(size_t newSize)
+	{
+		size_t currentSize = GetSize();
+		for (; newSize < currentSize; --m_end, --currentSize)
+		{
+			m_end->~T();
+		}
+		for (; newSize > currentSize; ++currentSize)
+		{
+			Append(T());
+		}
 	}
 
 	~CMyArray()
@@ -90,30 +112,23 @@ public:
 private:
 	static void DeleteItems(T *begin, T *end)
 	{
-		// Разрушаем старые элементы
 		DestroyItems(begin, end);
-		// Освобождаем область памяти для их хранения
 		RawDealloc(begin);
 	}
 
-	// Копирует элементы из текущего вектора в to, возвращает newEnd
 	static void CopyItems(const T *srcBegin, T *srcEnd, T * const dstBegin, T * & dstEnd)
 	{
 		for (dstEnd = dstBegin; srcBegin != srcEnd; ++srcBegin, ++dstEnd)
 		{
-			// Construct "T" at "dstEnd" as a copy of "*begin"
 			new (dstEnd)T(*srcBegin);
 		}
 	}
 
 	static void DestroyItems(T *from, T *to)
 	{
-		// dst - адрес объект, при конструирование которого было выброшено исключение
-		// to - первый скорнструированный объект
 		while (to != from)
 		{
 			--to;
-			// явно вызываем деструктор для шаблонного типа T
 			to->~T();
 		}
 	}
@@ -129,7 +144,7 @@ private:
 		return p;
 	}
 
-	static void RawDealloc(T *p)
+	static void RawDealloc(T * p)
 	{
 		free(p);
 	}
@@ -139,3 +154,4 @@ private:
 	T *m_end = nullptr;
 	T *m_endOfCapacity = nullptr;
 };
+

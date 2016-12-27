@@ -68,4 +68,44 @@ BOOST_FIXTURE_TEST_SUITE(MyArray, EmptyStringArray)
 			BOOST_CHECK_EQUAL(copy.GetCapacity(), arr.GetSize());
 		}
 	BOOST_AUTO_TEST_SUITE_END()
+	BOOST_AUTO_TEST_SUITE(has_indexed_access)
+		BOOST_AUTO_TEST_CASE(that_returns_element_by_index)
+		{
+			for (auto i = 0; i < 6; ++i)
+			{
+				arr.Append(i);
+			}
+
+			BOOST_CHECK_EQUAL(arr[2].value, 2);
+		}
+		BOOST_AUTO_TEST_CASE(or_throws_out_of_range)
+		{
+			for (auto i = 0; i < 6; ++i)
+			{
+				arr.Append(i);
+			}
+			BOOST_CHECK_THROW(arr[7], std::out_of_range);
+		}
+	BOOST_AUTO_TEST_SUITE_END()
+	BOOST_AUTO_TEST_SUITE(after_resize)
+		BOOST_AUTO_TEST_CASE(can_be_decreased)
+		{
+			for (auto i = 0; i < 6; ++i)
+			{
+				arr.Append(i);
+			}
+			size_t prevSize = arr.GetSize();
+			arr.Resize(prevSize - 3);
+			BOOST_CHECK(arr.GetSize() < prevSize);
+		}
+		BOOST_AUTO_TEST_CASE(can_be_increased)
+		{
+			size_t prevSize = arr.GetSize();
+			arr.Resize(prevSize + 3);
+			BOOST_CHECK(arr.GetSize() > prevSize);
+			BOOST_CHECK_EQUAL(arr[0].value, 0);
+			BOOST_CHECK_EQUAL(arr[1].value, 0);
+			BOOST_CHECK_EQUAL(arr[2].value, 0);
+		}
+	BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
