@@ -27,17 +27,17 @@ BOOST_AUTO_TEST_SUITE(FindMaxEx_)
 		BOOST_CHECK_EQUAL(maxAthlete.name, "Sugar Ray Leonard");
 	}
 
-	BOOST_AUTO_TEST_CASE(can_find_max_athlet_by_weight)
-	{
-		BOOST_CHECK(FindMaxEx(athletes, maxAthlete, LessWeight));
-		BOOST_CHECK_EQUAL(maxAthlete.weight, 172.0f);
-		BOOST_CHECK_EQUAL(maxAthlete.name, "Sugar Ray Leonard");
-	}
-
 	BOOST_AUTO_TEST_CASE(returns_false_if_vector_is_empty)
 	{
 		BOOST_CHECK(empty.empty());
 		BOOST_CHECK(!FindMaxEx(empty, maxAthlete, LessHeight));
 		BOOST_CHECK(!FindMaxEx(empty, maxAthlete, LessWeight));
+	}
+
+	BOOST_AUTO_TEST_CASE(can_find_max_by_default_way_of_comparison)
+	{
+		std::vector<std::string> strVector = {"first", "second", "third"};
+		std::string max;
+		BOOST_CHECK(FindMaxEx(strVector, max));
 	}
 BOOST_AUTO_TEST_SUITE_END()

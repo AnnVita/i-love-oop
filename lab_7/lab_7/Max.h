@@ -17,3 +17,21 @@ bool FindMaxEx(std::vector<T> const & arr, T & maxValue, Less const & less)
 	}
 	return true;
 }
+
+template <class T>
+bool FindMaxEx(std::vector<T> const & arr, T & maxValue)
+{
+	if (arr.empty())
+	{
+		return false;
+	}
+
+	for (const T & item : arr)
+	{
+		if (maxValue < item)
+		{
+			maxValue = item;
+		}
+	}
+	return true;
+}
