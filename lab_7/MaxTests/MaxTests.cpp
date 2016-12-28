@@ -36,8 +36,9 @@ BOOST_AUTO_TEST_SUITE(FindMaxEx_)
 
 	BOOST_AUTO_TEST_CASE(can_find_max_by_default_way_of_comparison)
 	{
-		std::vector<std::string> strVector = {"first", "second", "third"};
+		std::vector<std::string> strVector = {"1", "2", "3"};
 		std::string max;
 		BOOST_CHECK(FindMaxEx(strVector, max));
+		BOOST_CHECK_EQUAL(max, "3");
 	}
 BOOST_AUTO_TEST_SUITE_END()

@@ -8,6 +8,7 @@ bool FindMaxEx(std::vector<T> const & arr, T & maxValue, Less const & less)
 		return false;
 	}
 
+	maxValue = arr[0];
 	for (const T & item : arr)
 	{
 		if (less(maxValue, item))
@@ -26,6 +27,7 @@ bool FindMaxEx(std::vector<T> const & arr, T & maxValue)
 		return false;
 	}
 
+	maxValue = arr[0];
 	for (const T & item : arr)
 	{
 		if (maxValue < item)
