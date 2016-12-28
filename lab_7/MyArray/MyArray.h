@@ -83,6 +83,15 @@ public:
 		return m_endOfCapacity - m_begin;
 	}
 
+	const T & operator[](size_t n) const
+	{
+		if (n >= GetSize())
+		{
+			throw std::out_of_range("Out of range!");
+		}
+		return *(m_begin + n);
+	}
+
 	T & operator[](size_t n)
 	{
 		if (n >= GetSize())
@@ -105,12 +114,38 @@ public:
 		}
 	}
 
+	void Clear()
+	{
+		DeleteItems(m_begin, m_end);
+		m_begin = nullptr;
+		m_end = nullptr;
+	}
+
+	CMyArray & operator=(CMyArray const & r)
+	{
+		Copy(r);
+		return *this;
+	}
+
+	CMyArray & operator=(CMyArray && r) 
+	{
+		if (r.m_begin != m_begin)
+		{
+			m_begin = r.m_begin;
+			r.m_begin = nullptr;
+			m_end = r.m_end;
+			r.m_end = nullptr;
+		}
+		return *this;
+	}
+
 	~CMyArray()
 	{
 		DeleteItems(m_begin, m_end);
 	}
+
 private:
-	static void DeleteItems(T *begin, T *end)
+	static void DeleteItems(T * begin, T * end)
 	{
 		DestroyItems(begin, end);
 		RawDealloc(begin);
@@ -149,9 +184,27 @@ private:
 		free(p);
 	}
 
+	void Copy(const CMyArray & arr)
+	{
+		const size_t size = arr.GetSize();
+		if (size != 0)
+		{
+			m_begin = RawAlloc(size);
+			try
+			{
+				CopyItems(arr.m_begin, arr.m_end, m_begin, m_end);
+				m_endOfCapacity = m_end;
+			}
+			catch (...)
+			{
+				DeleteItems(m_begin, m_end);
+				throw;
+			}
+		}
+	}
+
 private:
 	T *m_begin = nullptr;
 	T *m_end = nullptr;
 	T *m_endOfCapacity = nullptr;
 };
-

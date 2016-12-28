@@ -71,12 +71,16 @@ BOOST_FIXTURE_TEST_SUITE(MyArray, EmptyStringArray)
 	BOOST_AUTO_TEST_SUITE(has_indexed_access)
 		BOOST_AUTO_TEST_CASE(that_returns_element_by_index)
 		{
-			for (auto i = 0; i < 6; ++i)
+			for (auto i = 0; i < 3; ++i)
 			{
 				arr.Append(i);
 			}
-
 			BOOST_CHECK_EQUAL(arr[2].value, 2);
+
+			const CMyArray<ArrayItem> newArr(arr);
+			BOOST_CHECK_EQUAL(newArr[0].value, 0);
+			BOOST_CHECK_EQUAL(newArr[1].value, 1);
+			BOOST_CHECK_EQUAL(newArr[2].value, 2);
 		}
 		BOOST_AUTO_TEST_CASE(or_throws_out_of_range)
 		{
@@ -108,4 +112,46 @@ BOOST_FIXTURE_TEST_SUITE(MyArray, EmptyStringArray)
 			BOOST_CHECK_EQUAL(arr[2].value, 0);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
+	BOOST_AUTO_TEST_CASE(can_be_assigned)
+	{
+		for (auto i = 0; i < 3; ++i)
+		{
+			arr.Append(i);
+		}
+		CMyArray<ArrayItem> newArr = arr;
+		BOOST_CHECK_EQUAL(newArr[0].value, 0);
+		BOOST_CHECK_EQUAL(newArr[1].value, 1);
+		BOOST_CHECK_EQUAL(newArr[2].value, 2);
+	}
+	BOOST_AUTO_TEST_SUITE(after_clearing)
+		BOOST_AUTO_TEST_CASE(has_no_size)
+		{
+			arr.Clear();
+			BOOST_CHECK_EQUAL(arr.GetSize(), 0);
+		}
+		BOOST_AUTO_TEST_CASE(has_no_elements)
+		{
+			arr.Clear();
+			BOOST_CHECK_THROW(arr[0], std::out_of_range);
+		}
+		BOOST_AUTO_TEST_CASE(empty)
+		{
+			arr.Append(2);
+			arr.Append(1);
+			arr.Clear();
+			BOOST_CHECK_EQUAL(arr.GetSize(), 0u);
+		}
+	BOOST_AUTO_TEST_SUITE_END()
+	BOOST_AUTO_TEST_CASE(can_be_moved)
+    {
+		for (auto i = 0; i < 3; ++i)
+		{
+			arr.Append(i);
+		}
+		CMyArray<ArrayItem> newArr;
+		newArr = CMyArray<ArrayItem>(arr);
+		BOOST_CHECK_EQUAL(newArr[0].value, 0);
+		BOOST_CHECK_EQUAL(newArr[1].value, 1);
+		BOOST_CHECK_EQUAL(newArr[2].value, 2);
+    }
 BOOST_AUTO_TEST_SUITE_END()

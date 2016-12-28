@@ -25,7 +25,7 @@ public:
 
 	void DrawShapes();
 private:
-	void DrawInnerCircle(CPoint const & center, float radius);
+	void SetPrimitiveType(sf::VertexArray & vertexArray, size_t size);
 
 	sf::RenderWindow m_window;
 	std::vector<sf::VertexArray> m_shapes;
